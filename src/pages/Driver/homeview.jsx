@@ -1,72 +1,68 @@
-// src/pages/driver/HomeView.jsx
 import { styles } from "./style";
+import { useOrders } from "../../OrderContext";
 
 function HomeView({ activeTrip, completedTrips }) {
+  const { globalLoads } = useOrders();
+
+  // Find if there's any active load explicitly assigned to this driver asset right now
+  const assignedLoad = globalLoads.find(l => l.status === "Assigned to Fleet");
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-      {/* Active Cargo Console Card */}
+      {/* Primary Trip Manifest Card */}
       <section style={styles.card}>
         <div style={styles.cardHeader}>
-          <span style={styles.liveIndicator}>● LIVE LONG-HAUL TRIP POOL</span>
-          <span style={styles.tripId}>{activeTrip.id}</span>
+          <span style={styles.liveIndicator}>● CURRENT ASSIGNED RUN MANIFEST</span>
+          <span style={styles.tripId}>{assignedLoad ? assignedLoad.id : activeTrip.id}</span>
         </div>
+
         <div style={styles.tripGrid}>
           <div>
-            <p style={styles.label}>FROM</p>
-            <p style={styles.value}>{activeTrip.origin}</p>
+            <div style={styles.label}>ROUTE SEGMENT CONTAINER</div>
+            <div style={styles.value}>{assignedLoad ? assignedLoad.route : activeTrip.origin}</div>
           </div>
           <div>
-            <p style={styles.label}>TO</p>
-            <p style={styles.value}>{activeTrip.destination}</p>
+            <div style={styles.label}>COMMODITY & CARGO DETAIL</div>
+            <div style={styles.value}>{assignedLoad ? assignedLoad.material : activeTrip.material}</div>
           </div>
           <div>
-            <p style={styles.label}>EST. TRANSIT WINDOW</p>
-            <p style={styles.value}>{activeTrip.estDuration}</p>
+            <div style={styles.label}>TOTAL MANIFEST PAYLOAD WEIGHT</div>
+            <div style={styles.value}>{assignedLoad ? assignedLoad.weight : activeTrip.weight}</div>
           </div>
           <div>
-            <p style={styles.label}>CARGO DETAILS</p>
-            <p style={styles.value}>{activeTrip.material} ({activeTrip.weight})</p>
-          </div>
-          <div style={{ gridColumn: "span 2" }}>
-            <p style={styles.label}>NET PAYOUT</p>
-            <p style={{...styles.value, color: "#10b981", fontSize: "1.4rem"}}>{activeTrip.payout}</p>
+            <div style={styles.label}>GUARANTEED TRIP PAYOUT VALUE</div>
+            <div style={{ ...styles.value, color: "#10b981" }}>
+              <strong>{assignedLoad ? assignedLoad.price : activeTrip.payout}</strong>
+            </div>
           </div>
         </div>
+
         <div style={styles.actionRow}>
-          <button style={styles.primaryBtn} onClick={() => alert("Truck Navigation Infrastructure Active.")}>
-            📍 Open Truck Navigation Route
-          </button>
-          <button style={styles.secondaryBtn} onClick={() => alert("POD Scanner Unlocked.")}>
-            📸 Upload POD / Delivery Receipt
-          </button>
+          <button style={styles.primaryBtn}>🗺️ Launch Commercial Navigation</button>
+          <button style={styles.secondaryBtn}>📞 Contact Dispatch Center</button>
         </div>
       </section>
 
-      {/* Detailed View Log Section */}
+      {/* Legacy Pay Ledger Table Section */}
       <section style={styles.card}>
-        <h3 style={{ marginBottom: "0.5rem" }}>📊 Detailed Recent Trip Log (Completed)</h3>
-        <p style={{color: "#6b7280", marginBottom: "1rem"}}>Historical validation records for auditing commercial payload deliveries</p>
+        <h3 style={{ marginBottom: "1rem" }}>📋 Historical Shift Log Tenders</h3>
         <div style={styles.tableWrapper}>
           <table style={styles.table}>
             <thead>
-              <tr style={{backgroundColor: "#f3f4f6"}}>
-                <th style={styles.th}>Date</th>
-                <th style={styles.th}>Route</th>
+              <tr>
+                <th style={styles.th}>Timestamp</th>
+                <th style={styles.th}>Route Run Log</th>
                 <th style={styles.th}>Duration</th>
-                <th style={styles.th}>Service Type</th>
-                <th style={styles.th}>Status</th>
-                <th style={styles.th}>Revenue</th>
+                <th style={styles.th}>Payout Earnings</th>
               </tr>
             </thead>
             <tbody>
               {completedTrips.map((trip, idx) => (
                 <tr key={idx} style={styles.tr}>
                   <td style={styles.td}>{trip.date}</td>
-                  <td style={styles.td}><strong>{trip.route}</strong></td>
+                  <td style={styles.td}>{trip.route}</td>
                   <td style={styles.td}>{trip.duration}</td>
-                  <td style={styles.td}>{trip.material}</td>
-                  <td style={styles.td}><span style={{color: "#10b981", fontWeight: "bold"}}>{trip.status}</span></td>
-                  <td style={{...styles.td, color: "#10b981"}}><strong>{trip.revenue}</strong></td>
+                  <td style={{ ...styles.td, color: "#10b981" }}><strong>{trip.revenue}</strong></td>
                 </tr>
               ))}
             </tbody>

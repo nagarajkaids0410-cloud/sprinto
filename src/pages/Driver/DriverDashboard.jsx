@@ -1,13 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./sidebar";
 import HomeView from "./homeview";
 import LoadBoardView from "./loardboard";
 import { styles } from "./style";
+import { useOrders } from "../../OrderContext";
 
 function DriverDashboard() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState("home"); // "home" or "loads"
+  const { globalLoads = [] } = useOrders();
 
   const driverData = {
     name: "Rajesh Kumar",
@@ -25,49 +27,15 @@ function DriverDashboard() {
     weight: "18 Tons",
     payout: "₹42,000",
     status: "In Transit",
-    estDuration: "~22 - 24 Hours (Commercial Truck Route)"
+    estDuration: "~22 - 24 Hours"
   };
 
   const completedTrips = [
-    { 
-    date: "Today, 8:32 AM", 
-    route: "Tambaram → Guindy", 
-    duration: "42 mins", 
-    material: "Bike Ride Share", 
-    status: "Completed", 
-    revenue: "₹187" 
-  },
-  { 
-    date: "Today, 7:14 AM", 
-    route: "Velachery → T. Nagar", 
-    duration: "26 mins", 
-    material: "Bike Ride Share", 
-    status: "Completed", 
-    revenue: "₹124" 
-  },
-  { 
-    date: "Yesterday, 6:45 PM", 
-    route: "Koyambedu → Anna Nagar", 
-    duration: "18 mins", 
-    material: "Bike Ride Share", 
-    status: "Completed", 
-    revenue: "₹95" 
-  },
-  { 
-    date: "Yesterday, 2:15 PM", 
-    route: "Adyar → Besant Nagar", 
-    duration: "12 mins", 
-    material: "Bike Ride Share", 
-    status: "Completed", 
-    revenue: "₹68" 
-  }
-      ];
-
-  const availableLoads = [
-    { id: "L-4091", route: "Mumbai to Delhi", material: "Pharma Goods", weight: "12T", price: "₹38,000" },
-    { id: "L-4092", route: "Bangalore to Hyderabad", material: "FMCG Cartons", weight: "15T", price: "₹24,500" },
-    { id: "L-4093", route: "Nagpur to Indore", material: "Steel Coils", weight: "22T", price: "₹51,000" },
+    { date: "Today, 8:32 AM", route: "Tambaram → Guindy", duration: "42 mins", material: "Logistics", status: "Completed", revenue: "₹187" },
+    { date: "Today, 7:14 AM", route: "Velachery → T. Nagar", duration: "26 mins", material: "Logistics", status: "Completed", revenue: "₹124" }
   ];
+
+  const availableLoads = globalLoads.filter(load => load.status === "Dispatched to Drivers");
 
   return (
     <div style={styles.dashboardContainer}>

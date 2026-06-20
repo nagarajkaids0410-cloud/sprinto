@@ -4,14 +4,14 @@ export const styles = {
     height: "100vh",            // Restricts layout to viewport bounds
     width: "100vw",
     overflow: "hidden",         // Prevents double scrollbars from appearing on the window
-    backgroundColor: "#f3f4f6", // Light grey background matching the workspace standard
+    backgroundColor: "#f3f4f6", // Light grey background matching the driver layout
     color: "#1f2937",
     fontFamily: "system-ui, -apple-system, sans-serif",
   },
   sidebar: {
     width: "280px",
     minWidth: "280px",          // Prevents the sidebar from collapsing under content pressure
-    backgroundColor: "#111827", // Dark navigation frame matching system layout
+    backgroundColor: "#111827", // Dark navigation frame matching driver dashboard
     padding: "2rem 1.5rem",
     display: "flex",
     flexDirection: "column",
@@ -64,24 +64,26 @@ export const styles = {
     flexGrow: 1,
   },
   navItem: {
-    padding: "1rem 1.25rem",
-    backgroundColor: "transparent",
-    color: "#9ca3af",
-    border: "none",
-    borderRadius: "8px",
-    textAlign: "left",
-    cursor: "pointer",
-    fontSize: "1rem",
-    fontWeight: "600",
-    display: "flex",
+    display: "flex",            // Use flex layout to support icons and text cleanly side by side
     alignItems: "center",
     gap: "0.75rem",
-    transition: "all 0.2s ease",
     width: "100%",
+    padding: "1rem 1.25rem",
+    backgroundColor: "transparent",
+    border: "none",
+    borderRadius: "8px",
+    color: "#9ca3af",           // Subtle grey text matching dark dashboard standards
+    textAlign: "left",
+    fontSize: "1rem",
+    fontWeight: "600",
+    cursor: "pointer",          // Enforces interactive mouse click tracking
+    transition: "all 0.2s ease",
+    boxSizing: "border-box"
   },
   activeNav: {
-    backgroundColor: "#2563eb", // Primary active interface blue matching ecosystem
+    backgroundColor: "#2563eb", // Vibrant theme blue active layout indicator
     color: "#ffffff",
+    fontWeight: "700"
   },
   logoutBtn: {
     padding: "1rem",
@@ -123,7 +125,7 @@ export const styles = {
     boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
   },
   card: {
-    backgroundColor: "#ffffff", // Crisp white content card
+    backgroundColor: "#ffffff", // Crisp light workspace layout card
     borderRadius: "12px",
     padding: "2rem",
     border: "1px solid #e5e7eb",
@@ -139,7 +141,7 @@ export const styles = {
     paddingBottom: "1rem",
   },
   liveIndicator: {
-    color: "#ef4444", // Crimson live indicator matches shipper dashboard
+    color: "#ef4444",           // Crimson alert indicator matches driver framework
     fontWeight: "700",
     fontSize: "0.9rem",
     letterSpacing: "1px",

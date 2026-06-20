@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
-import './App.css';
+import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import { OrderProvider } from './OrderContext.jsx'; // Core framework state hook
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <OrderProvider>
+        <App />
+      </OrderProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

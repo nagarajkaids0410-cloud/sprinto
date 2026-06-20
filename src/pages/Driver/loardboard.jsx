@@ -2,7 +2,6 @@ import { useState } from "react";
 import { styles } from "./style";
 
 function LoadBoardView({ availableLoads }) {
-  // Track accepted loads locally to make the UI interactive and dynamic
   const [acceptedLoadIds, setAcceptedLoadIds] = useState([]);
 
   const handleAccept = (loadId) => {
@@ -26,7 +25,7 @@ function LoadBoardView({ availableLoads }) {
               <th style={styles.th}>Commodity</th>
               <th style={styles.th}>Weight</th>
               <th style={styles.th}>Offer Price</th>
-              <th style={{ ...styles.th, textAlignment: "center" }}>Action</th>
+              <th style={{ ...styles.th, textAlign: "center" }}>Action</th>
             </tr>
           </thead>
           <tbody>

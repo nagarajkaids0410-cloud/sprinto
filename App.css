@@ -125,15 +125,21 @@ html, body {
 
 .login-portal-card {
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
   background: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-top: 2px solid #E11D48; 
+  border-top: 2px solid #E11D48;
+
   padding: 40px;
   border-radius: 16px;
+
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+
+  /* Move card left */
+  transform: translateX(-100px);
 }
 
 .form-header h2 {
