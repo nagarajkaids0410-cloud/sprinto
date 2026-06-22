@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "../../App.css";
 function Signup() {
   const [userType, setUserType] = useState("driver"); // 'driver' or 'shipper'
   const [fullName, setFullName] = useState("");
