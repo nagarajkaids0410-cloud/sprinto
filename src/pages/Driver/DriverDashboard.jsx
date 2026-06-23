@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Sidebar from "./sidebar";
 import LoadBoardView from "./loardboard";
 import DriverSettingsView from "./Settings";
+import ProfileView from "./ProfileView"; // Imported your premium Profile View layout here
+import UpdateDocumentsView from "./UpdateDocumentsView";
 
 // Mock driver data
 const driverInfo = {
@@ -36,12 +38,12 @@ function DriverDashboard() {
         return <DriverSettingsView />;
         
       case "profile":
-        return (
-          <div style={dashboardStyles.fallbackPanel}>
-            <h2>👤 Driver Credentials</h2>
-            <p style={{ color: "#8D99AE" }}>Commercial Driver License (CDL), active hours of service (HOS), and safety ratings.</p>
-          </div>
-        );
+        // Swapped out the old hardcoded fallback panel placeholder with the new component
+        return <ProfileView />;
+
+      case "update":
+        // This catch condition hooks up the core form
+        return <UpdateDocumentsView />;
         
       case "dashboard":
       default:
@@ -438,14 +440,6 @@ const dashboardStyles = {
     margin: 0,
     color: "#E5E7EB",
     lineHeight: "1.3"
-  },
-  fallbackPanel: {
-    backgroundColor: "#111827",
-    border: "1px solid #1C2541",
-    borderRadius: "10px",
-    padding: "30px",
-    textAlign: "center",
-    marginTop: "10px"
   }
 };
 

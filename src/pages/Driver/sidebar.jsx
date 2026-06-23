@@ -8,6 +8,8 @@ function Sidebar({ activeTab, setActiveTab, driverData, onSignOut }) {
     { id: "loads", label: "Available Load Board", icon: "🤖" },
     { id: "settings", label: "Settings", icon: "⚙️" },
     { id: "profile", label: "Profile", icon: "👤" },
+    // New Update Documents navigation item injected seamlessly here
+    { id: "update", label: "Update Documents", icon: "📂" },
   ];
 
   return (

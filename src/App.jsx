@@ -8,9 +8,10 @@ import DocumentVerification from "./pages/Authentication/Signup/DocumentVerifica
 import Login from "./pages/Authentication/Login";
 import DriverDashboard from "./pages/Driver/DriverDashboard";
 import LoadBoardView from "./pages/Driver/loardboard";
-import DriverSettingsView from "./pages/Driver/Settings"; o
+import DriverSettingsView from "./pages/Driver/Settings"; 
 import Dashboard from "./pages/ShipperV2/Dashboard";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import ProfileView from "./pages/Driver/ProfileView";
 
 export default function App() {
   return (
@@ -56,6 +57,8 @@ export default function App() {
         path="/dashboard/driver"
         element={<Navigate to="/driver/dashboard" replace />}
       />
+
+      <Route path="profile" element={<ProfileView />} />
 
       {/* Unknown Routes Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
