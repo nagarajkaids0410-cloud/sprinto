@@ -1,241 +1,201 @@
-export const styles = {
-  dashboardContainer: {
-    display: "flex",
-    height: "100vh",            // Restricts layout to viewport bounds
-    width: "100vw",
-    overflow: "hidden",         // Prevents double scrollbars from appearing on the window
-    backgroundColor: "#f3f4f6", // Light grey background matching the workspace standard
-    color: "#1f2937",
-    fontFamily: "system-ui, -apple-system, sans-serif",
+// src/pages/Driver/style.js
+
+// Styles for Settings view panels
+export const settingsStyles = {
+  container: {
+    backgroundColor: "#0B132B",
+    border: "1px solid #1C2541",
+    borderRadius: "12px",
+    padding: "30px",
+    fontFamily: "'Segoe UI', sans-serif",
+    color: "#FFFFFF"
   },
-  sidebar: {
-    width: "280px",
-    minWidth: "280px",          // Prevents the sidebar from collapsing under content pressure
-    backgroundColor: "#111827", // Dark navigation frame matching system layout
-    padding: "2rem 1.5rem",
+  headerWrapper: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottom: "2px solid #1C2541",
+    paddingBottom: "15px",
+    marginBottom: "25px"
+  },
+  sectionTitle: {
+    fontSize: "1.4rem",
+    color: "#00F0FF",
+    margin: 0,
+    letterSpacing: "1px"
+  },
+  sectionSubtitle: {
+    color: "#8D99AE",
+    fontSize: "0.85rem",
+    margin: "6px 0 0 0"
+  },
+  statusBanner: {
+    border: "1px solid",
+    padding: "8px 16px",
+    borderRadius: "20px",
+    fontSize: "0.8rem",
+    fontWeight: "700",
+    letterSpacing: "0.5px",
+    backgroundColor: "rgba(11, 19, 43, 0.6)"
+  },
+  settingsGrid: {
     display: "flex",
     flexDirection: "column",
-    color: "#ffffff",
-    height: "100%",             // Locks sidebar to full container height
-    boxSizing: "border-box",
+    gap: "20px"
+  },
+  settingsCard: {
+    backgroundColor: "#1C2541",
+    border: "1px solid #3A506B",
+    borderRadius: "8px",
+    padding: "20px",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.2)"
+  },
+  cardTitle: {
+    fontSize: "1rem",
+    color: "#FFFFFF",
+    margin: "0 0 15px 0",
+    borderBottom: "1px solid rgba(58, 80, 107, 0.5)",
+    paddingBottom: "8px",
+    fontWeight: "600",
+    letterSpacing: "0.5px"
+  },
+  settingRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "12px 0",
+    borderBottom: "1px solid rgba(58, 80, 107, 0.3)"
+  },
+  settingLabel: {
+    fontSize: "0.9rem",
+    color: "#E2E8F0",
+    fontWeight: "600"
+  },
+  settingDesc: {
+    fontSize: "0.75rem",
+    color: "#8D99AE",
+    marginTop: "2px",
+    lineHeight: "1.4"
+  },
+  toggleSwitch: {
+    width: "42px",
+    height: "22px",
+    accentColor: "#00F0FF",
+    cursor: "pointer"
+  },
+  selectMenu: {
+    backgroundColor: "#0B132B",
+    color: "#FFFFFF",
+    border: "1px solid #3A506B",
+    padding: "8px 12px",
+    borderRadius: "4px",
+    fontSize: "0.85rem",
+    outline: "none",
+    cursor: "pointer"
+  },
+  supportButton: {
+    padding: "12px",
+    backgroundColor: "transparent",
+    border: "1px solid #EF233C",
+    color: "#EF233C",
+    borderRadius: "6px",
+    fontWeight: "700",
+    cursor: "pointer",
+    fontSize: "0.85rem",
+    textAlign: "center"
+  }
+};
+
+// Styles mapped exactly to sidebar.jsx's JSX keys
+export const styles = {
+  sidebar: {
+    width: "260px",
+    backgroundColor: "#111827",
+    borderRight: "1px solid #1C2541",
+    display: "flex",
+    flexDirection: "column",
+    padding: "20px",
+    height: "100vh",
+    boxSizing: "border-box"
   },
   sidebarBrand: {
     display: "flex",
     alignItems: "center",
-    gap: "0.75rem",
-    marginBottom: "2.5rem",
+    gap: "12px",
+    marginBottom: "35px"
   },
   brandText: {
-    fontSize: "1.5rem",
-    fontWeight: "700",
-    letterSpacing: "1px",
-    color: "#ffffff",
+    fontSize: "1.3rem",
+    fontWeight: "800",
+    color: "#FFFFFF",
+    letterSpacing: "0.5px"
   },
   profileSection: {
-    padding: "1.25rem",
-    backgroundColor: "#1f2937",
-    borderRadius: "12px",
-    marginBottom: "2rem",
+    backgroundColor: "#1F2937",
+    padding: "15px",
+    borderRadius: "8px",
     textAlign: "center",
+    marginBottom: "25px",
+    border: "1px solid #1C2541"
   },
   avatar: {
     fontSize: "2rem",
-    marginBottom: "0.5rem",
+    marginBottom: "8px"
   },
   profileName: {
-    fontSize: "1.2rem",
-    fontWeight: "600",
-    marginBottom: "0.25rem",
-    color: "#ffffff",
+    fontWeight: "700",
+    fontSize: "0.95rem",
+    color: "#FFFFFF",
+    margin: "0 0 6px 0"
   },
   statusBadge: {
     display: "inline-block",
-    padding: "0.25rem 0.75rem",
-    backgroundColor: "#10b981", // Uniform green status badge
-    color: "#ffffff",
-    borderRadius: "20px",
-    fontSize: "0.8rem",
-    fontWeight: "700",
+    fontSize: "0.7rem",
+    fontWeight: "800",
+    color: "#FFFFFF",
+    padding: "4px 10px",
+    borderRadius: "12px",
+    letterSpacing: "0.5px"
   },
   navMenu: {
     display: "flex",
     flexDirection: "column",
-    gap: "0.5rem",
-    flexGrow: 1,
+    gap: "8px",
+    flexGrow: 1
   },
   navItem: {
-    padding: "1rem 1.25rem",
-    backgroundColor: "transparent",
-    color: "#9ca3af",
-    border: "none",
-    borderRadius: "8px",
-    textAlign: "left",
-    cursor: "pointer",
-    fontSize: "1rem",
-    fontWeight: "600",
     display: "flex",
     alignItems: "center",
-    gap: "0.75rem",
-    transition: "all 0.2s ease",
+    padding: "12px 16px",
+    borderRadius: "6px",
+    color: "#9CA3AF",
+    fontSize: "0.9rem",
+    fontWeight: "600",
+    background: "transparent",
+    border: "none",
     width: "100%",
+    textAlign: "left",
+    cursor: "pointer",
+    transition: "all 0.2s ease"
   },
   activeNav: {
-    backgroundColor: "#2563eb", // Primary active interface blue matching ecosystem
-    color: "#ffffff",
+    color: "#FFFFFF",
+    backgroundColor: "#2563EB"
   },
   logoutBtn: {
-    padding: "1rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "10px",
+    padding: "12px",
     backgroundColor: "#374151",
-    color: "#ffffff",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontWeight: "700",
-    marginTop: "auto",
-    transition: "background 0.2s",
-    width: "100%",
-  },
-  mainContent: {
-    flexGrow: 1,
-    padding: "2.5rem",
-    height: "100%",             // Establishes maximum area context limit
-    overflowY: "auto",          // Activates inner content scrolling cleanly!
-    boxSizing: "border-box",
-  },
-  topHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "2.5rem",
-    borderBottom: "1px solid #e5e7eb",
-    paddingBottom: "1.5rem",
-  },
-  headerMetrics: {
-    display: "flex",
-    gap: "1.5rem",
-  },
-  miniMetric: {
-    backgroundColor: "#ffffff",
-    padding: "0.75rem 1.25rem",
-    borderRadius: "8px",
-    border: "1px solid #e5e7eb",
-    fontSize: "0.95rem",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-  },
-  card: {
-    backgroundColor: "#ffffff", // Crisp white content card
-    borderRadius: "12px",
-    padding: "2rem",
-    border: "1px solid #e5e7eb",
-    boxShadow: "0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03)",
-    color: "#111827",
-  },
-  cardHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "1.5rem",
-    borderBottom: "1px solid #e5e7eb",
-    paddingBottom: "1rem",
-  },
-  liveIndicator: {
-    color: "#ef4444", // Crimson live indicator matches shipper dashboard
-    fontWeight: "700",
-    fontSize: "0.9rem",
-    letterSpacing: "1px",
-  },
-  tripId: {
-    fontSize: "1.1rem",
-    fontWeight: "700",
-    color: "#4b5563",
-  },
-  tripGrid: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: "1.5rem",
-    marginBottom: "2rem",
-  },
-  label: {
-    fontSize: "0.8rem",
-    color: "#6b7280",
-    fontWeight: "700",
-    letterSpacing: "0.5px",
-    marginBottom: "0.25rem",
-  },
-  value: {
-    fontSize: "1.1rem",
-    fontWeight: "600",
-    color: "#1f2937",
-  },
-  actionRow: {
-    display: "flex",
-    gap: "1rem",
-  },
-  primaryBtn: {
-    padding: "0.85rem 1.5rem",
-    backgroundColor: "#2563eb", 
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    fontWeight: "700",
-    cursor: "pointer",
-  },
-  secondaryBtn: {
-    padding: "0.85rem 1.5rem",
-    backgroundColor: "#ffffff",
-    color: "#374151",
-    border: "1px solid #d1d5db",
-    borderRadius: "8px",
-    fontWeight: "700",
-    cursor: "pointer",
-  },
-  tableWrapper: {
-    overflowX: "auto",
-    marginTop: "1rem",
-  },
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-    textAlign: "left",
-  },
-  th: {
-    padding: "1rem",
-    color: "#4b5563",
-    fontWeight: "700",
-    backgroundColor: "#f9fafb", 
-    borderBottom: "2px solid #e5e7eb",
-    fontSize: "0.9rem",
-  },
-  tr: {
-    borderBottom: "1px solid #e5e7eb",
-    transition: "background 0.2s",
-  },
-  td: {
-    padding: "1rem",
-    color: "#374151",
-    fontSize: "0.95rem",
-  },
-  formGroup: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.5rem",
-  },
-  input: {
-    padding: "0.75rem 1rem",
-    backgroundColor: "#f9fafb",
-    border: "1px solid #d1d5db",
-    borderRadius: "8px",
-    color: "#111827",
-    fontSize: "1rem",
-    width: "100%",
-    boxSizing: "border-box",
-  },
-  tableBtn: {
-    padding: "0.5rem 1rem",
-    color: "#ffffff",
-    border: "none",
+    border: "1px solid #4B5563",
+    color: "#FFFFFF",
     borderRadius: "6px",
     fontWeight: "600",
-    fontSize: "0.875rem",
+    cursor: "pointer",
+    fontSize: "0.85rem",
+    width: "100%",
+    marginTop: "auto"
   }
 };

@@ -45,6 +45,7 @@ export default function App() {
         path="/admin/dashboard/*"
         element={<AdminDashboard />}
       />
+      
 
       {/* Unknown Route */}
       <Route
