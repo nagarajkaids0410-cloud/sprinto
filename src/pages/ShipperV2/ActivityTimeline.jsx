@@ -1,31 +1,41 @@
 import React from "react";
+import {
+  Truck,
+  PackageCheck,
+  MapPinned,
+  BrainCircuit,
+  Clock,
+} from "lucide-react";
 
 function ActivityTimeline() {
   const activities = [
     {
-      title: "Truck TN-09-2345 Assigned",
-      time: "2 min ago",
-      color: "#C9A227",
+      title: "Truck Assigned",
+      description: "TN09AB1234 assigned to Chennai Route",
+      time: "2 mins ago",
+      icon: Truck,
+      color: "#22C55E",
     },
     {
       title: "Shipment Delivered",
-      time: "15 min ago",
-      color: "#22C55E",
+      description: "Order LS-1045 delivered successfully",
+      time: "20 mins ago",
+      icon: PackageCheck,
+      color: "#D4AF37",
     },
     {
-      title: "Driver Accepted Load",
-      time: "30 min ago",
+      title: "Route Optimized",
+      description: "AI reduced distance by 15 km",
+      time: "45 mins ago",
+      icon: BrainCircuit,
       color: "#3B82F6",
     },
     {
-      title: "AI Route Optimized",
+      title: "Vehicle Reached Pickup",
+      description: "Driver arrived at Warehouse",
       time: "1 hour ago",
-      color: "#F59E0B",
-    },
-    {
-      title: "Payment Received",
-      time: "2 hours ago",
-      color: "#22C55E",
+      icon: MapPinned,
+      color: "#EF4444",
     },
   ];
 
@@ -35,63 +45,94 @@ function ActivityTimeline() {
         background: "#242424",
         border: "1px solid #3A3A3A",
         borderRadius: "20px",
-        padding: "24px",
-        height: "420px",
-        overflowY: "auto",
+        padding: "25px",
+        height: "100%",
       }}
     >
       <h2
         style={{
           color: "#FFFFFF",
           marginBottom: "25px",
-          fontSize: "22px",
         }}
       >
-        Recent Activity
+        Activity Timeline
       </h2>
 
-      {activities.map((item, index) => (
-        <div
-          key={index}
-          style={{
-            display: "flex",
-            gap: "15px",
-            marginBottom: "25px",
-          }}
-        >
-          <div
-            style={{
-              width: "14px",
-              height: "14px",
-              borderRadius: "50%",
-              background: item.color,
-              marginTop: "6px",
-            }}
-          />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+        }}
+      >
+        {activities.map((activity, index) => {
+          const Icon = activity.icon;
 
-          <div>
-            <h4
+          return (
+            <div
+              key={index}
               style={{
-                color: "#FFFFFF",
-                margin: 0,
-                fontSize: "16px",
+                display: "flex",
+                gap: "15px",
+                alignItems: "flex-start",
               }}
             >
-              {item.title}
-            </h4>
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "14px",
+                  background: `${activity.color}20`,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexShrink: 0,
+                }}
+              >
+                <Icon
+                  size={24}
+                  color={activity.color}
+                />
+              </div>
 
-            <p
-              style={{
-                color: "#B0B0B0",
-                marginTop: "6px",
-                fontSize: "13px",
-              }}
-            >
-              {item.time}
-            </p>
-          </div>
-        </div>
-      ))}
+              <div style={{ flex: 1 }}>
+                <h4
+                  style={{
+                    color: "#FFFFFF",
+                    margin: 0,
+                    fontSize: "16px",
+                  }}
+                >
+                  {activity.title}
+                </h4>
+
+                <p
+                  style={{
+                    color: "#B0B0B0",
+                    margin: "8px 0",
+                    lineHeight: "22px",
+                  }}
+                >
+                  {activity.description}
+                </p>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    color: "#D4AF37",
+                    fontSize: "13px",
+                  }}
+                >
+                  <Clock size={14} />
+                  {activity.time}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

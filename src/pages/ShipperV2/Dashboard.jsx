@@ -1,52 +1,101 @@
 import React from "react";
 
-import Sidebar from "./Sidebar";
-import Topbar from "./Topbar";
+import Layout from "../../components/layout/Layout";
+
 import KpiCards from "./KpiCards";
 import LiveMap from "./LiveMap";
-import AnalyticsSection from "./AnalyticsSection";
+import AIInsights from "./AIInsights";
+import NotificationPanel from "./NotificationPanel";
+import RecentShipmentsTable from "./RecentShipmentsTable";
+import ActivityTimeline from "./ActivityTimeline";
+import FleetStatus from "./FleetStatus";
+import FleetCard from "./FleetCard";
+
+import RevenueChart from "../../components/dashboard/RevenueChart";
+import FleetChart from "../../components/dashboard/FleetChart";
+import DriverPerformance from "../../components/dashboard/DriverPerformance";
 
 function Dashboard() {
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-        background: "#121212",
-      }}
-    >
-      <Sidebar />
-
+    <Layout>
       <div
         style={{
-          flex: 1,
           display: "flex",
           flexDirection: "column",
-          overflow: "hidden",
+          gap: "25px",
         }}
       >
-        <Topbar />
+        {/* KPI Cards */}
+
+        <KpiCards />
+
+        {/* Revenue + Fleet Chart */}
 
         <div
           style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "30px",
-            background: "#121212",
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr",
+            gap: "25px",
           }}
         >
-          <KpiCards />
+          <RevenueChart />
+          <FleetChart />
+        </div>
 
-          <div style={{ marginTop: "25px" }}>
-            <LiveMap />
-          </div>
+        {/* Live Map + AI + Notifications */}
 
-          <div style={{ marginTop: "25px" }}>
-            <AnalyticsSection />
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr",
+            gap: "25px",
+          }}
+        >
+          <LiveMap />
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "25px",
+            }}
+          >
+            <AIInsights />
+            <NotificationPanel />
           </div>
         </div>
+
+        {/* Fleet Status + Driver Performance */}
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "25px",
+          }}
+        >
+          <FleetStatus />
+          <DriverPerformance />
+        </div>
+
+        {/* Fleet Overview + Activity */}
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "2fr 1fr",
+            gap: "25px",
+          }}
+        >
+          <FleetCard />
+          <ActivityTimeline />
+        </div>
+
+        {/* Recent Shipments */}
+
+        <RecentShipmentsTable />
       </div>
-    </div>
+    </Layout>
   );
 }
 

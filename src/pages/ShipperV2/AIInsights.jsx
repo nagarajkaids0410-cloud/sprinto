@@ -1,40 +1,42 @@
 import React from "react";
 import {
+  BrainCircuit,
   TrendingUp,
-  TrendingDown,
-  Truck,
-  Package,
+  Route,
+  Fuel,
+  IndianRupee,
+  Sparkles,
 } from "lucide-react";
 
-function AnalyticsSection() {
-  const analytics = [
+function AIInsights() {
+  const insights = [
     {
-      title: "Revenue Growth",
+      title: "Best Truck Match",
+      value: "TN09AB1234",
+      subtitle: "98% AI Confidence",
+      icon: BrainCircuit,
+      color: "#D4AF37",
+    },
+    {
+      title: "Demand Prediction",
       value: "+18%",
-      subtitle: "Compared to last month",
+      subtitle: "Expected Tomorrow",
       icon: TrendingUp,
       color: "#22C55E",
     },
     {
-      title: "Fleet Utilization",
-      value: "92%",
-      subtitle: "142 / 152 trucks active",
-      icon: Truck,
-      color: "#D4AF37",
-    },
-    {
-      title: "Shipment Success",
-      value: "98%",
-      subtitle: "On-time deliveries",
-      icon: Package,
+      title: "Route Optimization",
+      value: "15 KM Saved",
+      subtitle: "Fastest Route",
+      icon: Route,
       color: "#3B82F6",
     },
     {
-      title: "Operating Cost",
-      value: "-6%",
-      subtitle: "AI optimization savings",
-      icon: TrendingDown,
-      color: "#EF4444",
+      title: "Fuel Savings",
+      value: "12 Litres",
+      subtitle: "AI Estimated",
+      icon: Fuel,
+      color: "#F59E0B",
     },
   ];
 
@@ -47,23 +49,34 @@ function AnalyticsSection() {
         padding: "25px",
       }}
     >
-      <h2
+      <div
         style={{
-          color: "#FFFFFF",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
           marginBottom: "25px",
         }}
       >
-        Business Analytics
-      </h2>
+        <h2
+          style={{
+            color: "#FFFFFF",
+            margin: 0,
+          }}
+        >
+          AI Insights
+        </h2>
+
+        <Sparkles color="#D4AF37" size={28} />
+      </div>
 
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(2,1fr)",
-          gap: "20px",
+          gap: "18px",
         }}
       >
-        {analytics.map((item, index) => {
+        {insights.map((item, index) => {
           const Icon = item.icon;
 
           return (
@@ -80,7 +93,6 @@ function AnalyticsSection() {
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
                 }}
               >
                 <div>
@@ -134,23 +146,53 @@ function AnalyticsSection() {
 
       <div
         style={{
-          marginTop: "30px",
-          height: "220px",
+          marginTop: "25px",
           background: "#1B1B1B",
-          border: "1px dashed #3A3A3A",
+          border: "1px solid #3A3A3A",
           borderRadius: "16px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "#D4AF37",
-          fontSize: "18px",
-          fontWeight: "600",
+          padding: "20px",
         }}
       >
-        📊 Revenue & Fleet Analytics Chart
+        <h3
+          style={{
+            color: "#FFFFFF",
+            marginTop: 0,
+          }}
+        >
+          AI Recommendation
+        </h3>
+
+        <p
+          style={{
+            color: "#B0B0B0",
+            lineHeight: "24px",
+          }}
+        >
+          Assign <strong style={{ color: "#D4AF37" }}>Truck TN09AB1234</strong>
+          {" "}to the Chennai → Bangalore shipment.
+          Estimated delivery time will improve by
+          <strong style={{ color: "#22C55E" }}> 18%</strong>
+          {" "}while reducing fuel cost by
+          <strong style={{ color: "#22C55E" }}> ₹2,450</strong>.
+        </p>
+
+        <button
+          style={{
+            marginTop: "15px",
+            background: "#D4AF37",
+            color: "#121212",
+            border: "none",
+            padding: "12px 20px",
+            borderRadius: "10px",
+            fontWeight: "600",
+            cursor: "pointer",
+          }}
+        >
+          Apply Recommendation
+        </button>
       </div>
     </div>
   );
 }
 
-export default AnalyticsSection;
+export default AIInsights;

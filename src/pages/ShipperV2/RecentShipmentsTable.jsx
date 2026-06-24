@@ -1,61 +1,46 @@
 import React from "react";
+import {
+  Truck,
+  CheckCircle,
+  Clock,
+  MapPin,
+} from "lucide-react";
 
 function RecentShipmentsTable() {
   const shipments = [
     {
-      id: "LS1001",
-      from: "Chennai",
-      to: "Bangalore",
-      truck: "TN09AB2345",
+      id: "LS-1025",
+      customer: "Amazon",
+      route: "Chennai → Bangalore",
       status: "In Transit",
-      revenue: "₹25,000",
+      truck: "TN09AB1234",
+      color: "#3B82F6",
     },
     {
-      id: "LS1002",
-      from: "Coimbatore",
-      to: "Hyderabad",
-      truck: "TN22CD9876",
+      id: "LS-1024",
+      customer: "Flipkart",
+      route: "Coimbatore → Chennai",
       status: "Delivered",
-      revenue: "₹42,500",
+      truck: "TN10XY5678",
+      color: "#22C55E",
     },
     {
-      id: "LS1003",
-      from: "Madurai",
-      to: "Pune",
-      truck: "TN58EF1234",
-      status: "Pending",
-      revenue: "₹18,750",
+      id: "LS-1023",
+      customer: "Reliance",
+      route: "Madurai → Salem",
+      status: "Loading",
+      truck: "TN11CD7890",
+      color: "#D4AF37",
     },
     {
-      id: "LS1004",
-      from: "Salem",
-      to: "Mumbai",
-      truck: "TN77GH4567",
-      status: "In Transit",
-      revenue: "₹38,900",
-    },
-    {
-      id: "LS1005",
-      from: "Trichy",
-      to: "Delhi",
-      truck: "TN10JK5678",
-      status: "Delivered",
-      revenue: "₹52,300",
+      id: "LS-1022",
+      customer: "Dmart",
+      route: "Trichy → Erode",
+      status: "Delayed",
+      truck: "TN12EF4321",
+      color: "#EF4444",
     },
   ];
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "Delivered":
-        return "#22C55E";
-      case "In Transit":
-        return "#C9A227";
-      case "Pending":
-        return "#F59E0B";
-      default:
-        return "#B0B0B0";
-    }
-  };
 
   return (
     <div
@@ -64,40 +49,53 @@ function RecentShipmentsTable() {
         border: "1px solid #3A3A3A",
         borderRadius: "20px",
         padding: "25px",
-        overflowX: "auto",
       }}
     >
+      {/* Header */}
+
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
           marginBottom: "25px",
         }}
       >
-        <h2
-          style={{
-            color: "#FFFFFF",
-            margin: 0,
-          }}
-        >
-          Recent Shipments
-        </h2>
+        <div>
+          <h2
+            style={{
+              color: "#FFFFFF",
+              margin: 0,
+            }}
+          >
+            Recent Shipments
+          </h2>
+
+          <p
+            style={{
+              color: "#B0B0B0",
+              marginTop: "8px",
+            }}
+          >
+            Latest logistics operations
+          </p>
+        </div>
 
         <button
           style={{
-            background: "#C9A227",
+            background: "#D4AF37",
             color: "#121212",
             border: "none",
             padding: "10px 18px",
             borderRadius: "10px",
-            cursor: "pointer",
             fontWeight: "600",
+            cursor: "pointer",
           }}
         >
           View All
         </button>
       </div>
+
+      {/* Table */}
 
       <table
         style={{
@@ -106,109 +104,93 @@ function RecentShipmentsTable() {
         }}
       >
         <thead>
-          <tr>
-            {[
-              "Shipment ID",
-              "Source",
-              "Destination",
-              "Truck",
-              "Status",
-              "Revenue",
-            ].map((head) => (
-              <th
-                key={head}
-                style={{
-                  color: "#B0B0B0",
-                  textAlign: "left",
-                  padding: "15px",
-                  borderBottom: "1px solid #3A3A3A",
-                  fontWeight: "600",
-                }}
-              >
-                {head}
-              </th>
-            ))}
+          <tr
+            style={{
+              color: "#B0B0B0",
+              borderBottom: "1px solid #3A3A3A",
+            }}
+          >
+            <th align="left">Shipment</th>
+            <th align="left">Customer</th>
+            <th align="left">Route</th>
+            <th align="left">Truck</th>
+            <th align="left">Status</th>
           </tr>
         </thead>
 
         <tbody>
-          {shipments.map((shipment) => (
+          {shipments.map((shipment, index) => (
             <tr
-              key={shipment.id}
+              key={index}
               style={{
-                transition: "0.3s",
+                borderBottom: "1px solid #2F2F2F",
+                height: "70px",
               }}
             >
-              <td
-                style={{
-                  padding: "18px 15px",
-                  color: "#FFFFFF",
-                  borderBottom: "1px solid #2F2F2F",
-                  fontWeight: "600",
-                }}
-              >
+              <td style={{ color: "#FFFFFF" }}>
                 {shipment.id}
               </td>
 
+              <td style={{ color: "#FFFFFF" }}>
+                {shipment.customer}
+              </td>
+
               <td
                 style={{
-                  padding: "18px 15px",
                   color: "#B0B0B0",
-                  borderBottom: "1px solid #2F2F2F",
                 }}
               >
-                {shipment.from}
-              </td>
-
-              <td
-                style={{
-                  padding: "18px 15px",
-                  color: "#B0B0B0",
-                  borderBottom: "1px solid #2F2F2F",
-                }}
-              >
-                {shipment.to}
-              </td>
-
-              <td
-                style={{
-                  padding: "18px 15px",
-                  color: "#FFFFFF",
-                  borderBottom: "1px solid #2F2F2F",
-                }}
-              >
-                {shipment.truck}
-              </td>
-
-              <td
-                style={{
-                  padding: "18px 15px",
-                  borderBottom: "1px solid #2F2F2F",
-                }}
-              >
-                <span
+                <div
                   style={{
-                    background: `${getStatusColor(shipment.status)}20`,
-                    color: getStatusColor(shipment.status),
-                    padding: "6px 14px",
-                    borderRadius: "20px",
-                    fontSize: "13px",
-                    fontWeight: "600",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
                   }}
                 >
-                  {shipment.status}
-                </span>
+                  <MapPin size={15} color="#D4AF37" />
+                  {shipment.route}
+                </div>
               </td>
 
               <td
                 style={{
-                  padding: "18px 15px",
-                  color: "#22C55E",
-                  borderBottom: "1px solid #2F2F2F",
-                  fontWeight: "700",
+                  color: "#FFFFFF",
                 }}
               >
-                {shipment.revenue}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <Truck size={16} color="#D4AF37" />
+                  {shipment.truck}
+                </div>
+              </td>
+
+              <td>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    background: `${shipment.color}20`,
+                    color: shipment.color,
+                    padding: "8px 14px",
+                    borderRadius: "20px",
+                    fontWeight: "600",
+                    fontSize: "13px",
+                  }}
+                >
+                  {shipment.status === "Delivered" ? (
+                    <CheckCircle size={15} />
+                  ) : (
+                    <Clock size={15} />
+                  )}
+
+                  {shipment.status}
+                </div>
               </td>
             </tr>
           ))}

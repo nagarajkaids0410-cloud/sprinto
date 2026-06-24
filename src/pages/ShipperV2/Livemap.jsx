@@ -1,17 +1,19 @@
 import React from "react";
+import {
+  Truck,
+  MapPin,
+  Navigation,
+  CircleDot,
+} from "lucide-react";
 
 function LiveMap() {
   return (
     <div
       style={{
-        background: "#4A0910",
+        background: "#242424",
+        border: "1px solid #3A3A3A",
         borderRadius: "20px",
-        padding: "20px",
-        height: "420px",
-        position: "relative",
-        overflow: "hidden",
-        border: "1px solid #9B1313",
-        boxShadow: "0 8px 25px rgba(0,0,0,0.35)",
+        padding: "25px",
       }}
     >
       {/* Header */}
@@ -20,8 +22,8 @@ function LiveMap() {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          marginBottom: "20px",
           alignItems: "center",
+          marginBottom: "20px",
         }}
       >
         <div>
@@ -29,100 +31,46 @@ function LiveMap() {
             style={{
               color: "#FFFFFF",
               margin: 0,
-              fontSize: "24px",
             }}
           >
-            🗺 Live Fleet Map
+            Live Fleet Tracking
           </h2>
 
           <p
             style={{
-              color: "#FFA896",
+              color: "#B0B0B0",
               marginTop: "8px",
             }}
           >
-            Real-time Truck & Shipment Tracking
+            Real-time truck locations
           </p>
         </div>
 
         <div
           style={{
-            background: "#CD1C18",
-            color: "#FFFFFF",
-            padding: "10px 18px",
-            borderRadius: "10px",
-            fontWeight: "700",
-            height: "fit-content",
+            background: "#22C55E20",
+            color: "#22C55E",
+            padding: "8px 15px",
+            borderRadius: "12px",
+            fontWeight: "600",
           }}
         >
           ● LIVE
         </div>
       </div>
 
-      {/* Map Area */}
+      {/* Map */}
 
       <div
         style={{
-          height: "320px",
+          height: "420px",
+          background: "#1B1B1B",
           borderRadius: "16px",
-          background:
-            "linear-gradient(135deg,#38000A,#4A0910,#9B1313)",
+          border: "1px solid #3A3A3A",
           position: "relative",
-          border: "1px solid #9B1313",
+          overflow: "hidden",
         }}
       >
-        {/* Truck 1 */}
-
-        <div
-          style={{
-            position: "absolute",
-            top: "70px",
-            left: "120px",
-            fontSize: "32px",
-          }}
-        >
-          🚛
-        </div>
-
-        {/* Truck 2 */}
-
-        <div
-          style={{
-            position: "absolute",
-            top: "170px",
-            left: "420px",
-            fontSize: "32px",
-          }}
-        >
-          🚚
-        </div>
-
-        {/* Pickup */}
-
-        <div
-          style={{
-            position: "absolute",
-            top: "90px",
-            left: "300px",
-            fontSize: "28px",
-          }}
-        >
-          📍
-        </div>
-
-        {/* Destination */}
-
-        <div
-          style={{
-            position: "absolute",
-            top: "230px",
-            left: "620px",
-            fontSize: "28px",
-          }}
-        >
-          🎯
-        </div>
-
         {/* Route */}
 
         <svg
@@ -130,61 +78,145 @@ function LiveMap() {
           height="100%"
           style={{
             position: "absolute",
-            top: 0,
-            left: 0,
           }}
         >
           <line
-            x1="140"
-            y1="90"
-            x2="320"
-            y2="105"
-            stroke="#FFA896"
+            x1="120"
+            y1="120"
+            x2="300"
+            y2="170"
+            stroke="#D4AF37"
             strokeWidth="4"
             strokeDasharray="8"
           />
 
           <line
-            x1="320"
-            y1="105"
-            x2="640"
-            y2="240"
-            stroke="#CD1C18"
+            x1="300"
+            y1="170"
+            x2="520"
+            y2="260"
+            stroke="#22C55E"
             strokeWidth="4"
             strokeDasharray="8"
           />
         </svg>
 
-        {/* Bottom Status */}
+        {/* Truck */}
 
         <div
           style={{
             position: "absolute",
-            bottom: "20px",
-            left: "20px",
-            display: "flex",
-            gap: "25px",
-            color: "#FFFFFF",
-            fontWeight: "600",
-            flexWrap: "wrap",
+            top: "100px",
+            left: "100px",
           }}
         >
-          <span style={{ color: "#22C55E" }}>
-            🟢 Running : 42
-          </span>
-
-          <span style={{ color: "#FFA896" }}>
-            📍 Pickup : 12
-          </span>
-
-          <span style={{ color: "#CD1C18" }}>
-            🚚 Delivery : 19
-          </span>
-
-          <span style={{ color: "#FF6B6B" }}>
-            🚦 Traffic Delay : 3
-          </span>
+          <Truck size={36} color="#D4AF37" />
         </div>
+
+        {/* Pickup */}
+
+        <div
+          style={{
+            position: "absolute",
+            top: "150px",
+            left: "280px",
+          }}
+        >
+          <MapPin size={32} color="#3B82F6" />
+        </div>
+
+        {/* Destination */}
+
+        <div
+          style={{
+            position: "absolute",
+            top: "240px",
+            left: "500px",
+          }}
+        >
+          <Navigation size={32} color="#22C55E" />
+        </div>
+
+        {/* Live Indicator */}
+
+        <div
+          style={{
+            position: "absolute",
+            top: "70px",
+            right: "30px",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            color: "#22C55E",
+            fontWeight: "600",
+          }}
+        >
+          <CircleDot size={18} />
+          Live Tracking
+        </div>
+      </div>
+
+      {/* Bottom Stats */}
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4,1fr)",
+          gap: "15px",
+          marginTop: "20px",
+        }}
+      >
+        {[
+          {
+            title: "Running",
+            value: "42",
+            color: "#22C55E",
+          },
+          {
+            title: "Pickup",
+            value: "12",
+            color: "#3B82F6",
+          },
+          {
+            title: "Delivery",
+            value: "19",
+            color: "#D4AF37",
+          },
+          {
+            title: "Delayed",
+            value: "3",
+            color: "#EF4444",
+          },
+        ].map((item, index) => (
+          <div
+            key={index}
+            style={{
+              background: "#121212",
+              border: "1px solid #3A3A3A",
+              borderRadius: "14px",
+              padding: "18px",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                color: "#B0B0B0",
+                margin: 0,
+              }}
+            >
+              {item.title}
+            </p>
+
+            <h2
+              style={{
+                color: item.color,
+                marginTop: "10px",
+              }}
+            >
+              {item.value}
+            </h2>
+          </div>
+        ))}
       </div>
     </div>
   );
