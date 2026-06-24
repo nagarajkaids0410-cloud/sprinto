@@ -1,42 +1,27 @@
 import React from "react";
 
-function DriverManagement() {
-  const drivers = [
+function AITruckMatching() {
+  const recommendations = [
     {
-      name: "Arun Kumar",
       truck: "TN09AB1234",
-      rating: "4.9",
-      trips: 248,
-      status: "Online",
-      phone: "+91 9876543210",
-      color: "#22C55E",
+      route: "Chennai → Bangalore",
+      score: "98%",
+      fuel: "12% Saved",
+      savings: "₹4,500",
     },
     {
-      name: "Praveen",
       truck: "TN22CD5678",
-      rating: "4.8",
-      trips: 201,
-      status: "Driving",
-      phone: "+91 9123456789",
-      color: "#C9A227",
+      route: "Coimbatore → Hyderabad",
+      score: "94%",
+      fuel: "9% Saved",
+      savings: "₹3,200",
     },
     {
-      name: "Vignesh",
       truck: "TN58EF7890",
-      rating: "4.7",
-      trips: 178,
-      status: "Offline",
-      phone: "+91 9988776655",
-      color: "#EF4444",
-    },
-    {
-      name: "Karthik",
-      truck: "TN77GH1122",
-      rating: "5.0",
-      trips: 295,
-      status: "Online",
-      phone: "+91 9871234567",
-      color: "#22C55E",
+      route: "Madurai → Pune",
+      score: "91%",
+      fuel: "7% Saved",
+      savings: "₹2,850",
     },
   ];
 
@@ -60,7 +45,7 @@ function DriverManagement() {
               margin: 0,
             }}
           >
-            Driver Management
+            AI Truck Matching
           </h1>
 
           <p
@@ -69,7 +54,7 @@ function DriverManagement() {
               marginTop: "8px",
             }}
           >
-            Manage all registered drivers
+            AI-powered truck recommendations
           </p>
         </div>
 
@@ -84,11 +69,11 @@ function DriverManagement() {
             fontWeight: "600",
           }}
         >
-          + Add Driver
+          Run AI Matching
         </button>
       </div>
 
-      {/* Summary */}
+      {/* AI Stats */}
 
       <div
         style={{
@@ -99,10 +84,10 @@ function DriverManagement() {
         }}
       >
         {[
-          { title: "Total Drivers", value: "128" },
-          { title: "Online", value: "84" },
-          { title: "Driving", value: "31" },
-          { title: "Offline", value: "13" },
+          { title: "AI Accuracy", value: "96%" },
+          { title: "Fuel Saved", value: "18%" },
+          { title: "Matches Today", value: "142" },
+          { title: "Cost Saved", value: "₹1.2L" },
         ].map((item, index) => (
           <div
             key={index}
@@ -124,7 +109,7 @@ function DriverManagement() {
 
             <h1
               style={{
-                color: "#FFFFFF",
+                color: "#C9A227",
                 marginTop: "12px",
                 fontSize: "36px",
               }}
@@ -135,16 +120,16 @@ function DriverManagement() {
         ))}
       </div>
 
-      {/* Driver Cards */}
+      {/* Recommendations */}
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
+          gridTemplateColumns: "repeat(auto-fit,minmax(350px,1fr))",
           gap: "20px",
         }}
       >
-        {drivers.map((driver, index) => (
+        {recommendations.map((item, index) => (
           <div
             key={index}
             style={{
@@ -158,119 +143,89 @@ function DriverManagement() {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
+                marginBottom: "20px",
               }}
             >
-              <div>
-                <h2
-                  style={{
-                    color: "#FFFFFF",
-                    margin: 0,
-                  }}
-                >
-                  {driver.name}
-                </h2>
-
-                <p
-                  style={{
-                    color: "#B0B0B0",
-                    marginTop: "8px",
-                  }}
-                >
-                  {driver.phone}
-                </p>
-              </div>
+              <h2
+                style={{
+                  color: "#FFFFFF",
+                  margin: 0,
+                }}
+              >
+                🚛 {item.truck}
+              </h2>
 
               <span
                 style={{
-                  background: `${driver.color}20`,
-                  color: driver.color,
+                  background: "#22C55E20",
+                  color: "#22C55E",
                   padding: "6px 14px",
                   borderRadius: "20px",
-                  height: "fit-content",
-                  fontSize: "12px",
                   fontWeight: "600",
                 }}
               >
-                {driver.status}
+                Match {item.score}
               </span>
             </div>
 
-            <div
+            <p
               style={{
-                marginTop: "20px",
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "15px",
+                color: "#B0B0B0",
+                marginBottom: "8px",
               }}
             >
-              <div>
-                <p
-                  style={{
-                    color: "#B0B0B0",
-                    marginBottom: "5px",
-                  }}
-                >
-                  Assigned Truck
-                </p>
+              Route
+            </p>
 
-                <h4
-                  style={{
-                    color: "#FFFFFF",
-                    margin: 0,
-                  }}
-                >
-                  {driver.truck}
-                </h4>
-              </div>
-
-              <div>
-                <p
-                  style={{
-                    color: "#B0B0B0",
-                    marginBottom: "5px",
-                  }}
-                >
-                  Rating
-                </p>
-
-                <h4
-                  style={{
-                    color: "#C9A227",
-                    margin: 0,
-                  }}
-                >
-                  ⭐ {driver.rating}
-                </h4>
-              </div>
-            </div>
+            <h4
+              style={{
+                color: "#C9A227",
+                marginTop: 0,
+              }}
+            >
+              {item.route}
+            </h4>
 
             <div
               style={{
+                display: "flex",
+                justifyContent: "space-between",
                 marginTop: "20px",
               }}
             >
-              <p
-                style={{
-                  color: "#B0B0B0",
-                  marginBottom: "5px",
-                }}
-              >
-                Completed Trips
-              </p>
+              <div>
+                <p style={{ color: "#B0B0B0" }}>
+                  Fuel Saving
+                </p>
 
-              <h3
-                style={{
-                  color: "#22C55E",
-                }}
-              >
-                {driver.trips}
-              </h3>
+                <h3
+                  style={{
+                    color: "#22C55E",
+                  }}
+                >
+                  {item.fuel}
+                </h3>
+              </div>
+
+              <div>
+                <p style={{ color: "#B0B0B0" }}>
+                  Cost Saving
+                </p>
+
+                <h3
+                  style={{
+                    color: "#22C55E",
+                  }}
+                >
+                  {item.savings}
+                </h3>
+              </div>
             </div>
 
             <button
               style={{
-                marginTop: "20px",
                 width: "100%",
+                marginTop: "20px",
                 background: "#C9A227",
                 color: "#121212",
                 border: "none",
@@ -280,7 +235,7 @@ function DriverManagement() {
                 fontWeight: "600",
               }}
             >
-              View Profile
+              Assign Truck
             </button>
           </div>
         ))}
@@ -290,4 +245,4 @@ function DriverManagement() {
   );
 }
 
-export default DriverManagement;
+export default AITruckMatching;

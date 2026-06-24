@@ -5,111 +5,183 @@ function Topbar() {
     <div
       style={{
         height: "80px",
-        background: "#10243B",
+        background: "#1B1B1B",
+        borderBottom: "1px solid #3A3A3A",
+
         display: "flex",
-        alignItems: "center",
         justifyContent: "space-between",
-        padding: "0 30px",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        alignItems: "center",
+
+        padding: "0px 30px",
       }}
     >
       {/* Left */}
+
       <div>
+
         <h2
           style={{
-            color: "#fff",
-            margin: 0,
-            fontSize: "28px",
-            fontWeight: "700",
+            color: "#FFFFFF",
           }}
         >
-          Logistics Command Center
+          Dashboard
         </h2>
 
         <p
           style={{
-            color: "#8FA6C4",
-            margin: "5px 0 0 0",
-            fontSize: "14px",
+            color: "#B0B0B0",
+            marginTop: "5px",
           }}
         >
-          Real-Time Fleet & Shipment Monitoring
+          Welcome back to Sprintto Enterprise
         </p>
+
       </div>
 
-      {/* Right */}
-      <div
+      {/* Search */}
+
+      <input
+
+        placeholder="Search Trucks, Drivers, Shipments"
+
         style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "20px",
+
+          width: "400px",
+
+          background: "#242424",
+
+          border: "1px solid #3A3A3A",
+
+          color: "#FFFFFF",
+
+          padding: "14px",
+
+          borderRadius: "12px",
+
         }}
+
+      />
+
+      {/* Right */}
+
+      <div
+
+        style={{
+
+          display: "flex",
+
+          gap: "20px",
+
+          alignItems: "center",
+
+        }}
+
       >
-        <input
-          type="text"
-          placeholder="Search shipment, truck..."
-          style={{
-            width: "300px",
-            padding: "12px 20px",
-            borderRadius: "12px",
-            border: "none",
-            background: "#081321",
-            color: "#fff",
-            outline: "none",
-          }}
-        />
 
         <div
+
           style={{
-            background: "#081321",
-            padding: "10px 15px",
+
+            background: "#242424",
+
+            padding: "12px",
+
             borderRadius: "12px",
-            color: "#00D9FF",
-            fontWeight: "600",
+
+            border: "1px solid #3A3A3A",
+
           }}
+
         >
-          🔔 4 Alerts
+
+          🔔
+
         </div>
 
         <div
+
           style={{
+
             display: "flex",
+
             alignItems: "center",
+
             gap: "10px",
+
           }}
+
         >
+
           <div
+
             style={{
+
               width: "45px",
+
               height: "45px",
+
               borderRadius: "50%",
-              background: "#00D9FF",
+
+              background: "#C9A227",
+
+              color: "#121212",
+
               display: "flex",
-              alignItems: "center",
+
               justifyContent: "center",
-              color: "#071426",
-              fontWeight: "bold",
+
+              alignItems: "center",
+
+              fontWeight: "700",
+
             }}
+
           >
-            N
+
+            RR
+
           </div>
 
           <div>
-            <div style={{ color: "#fff", fontWeight: "600" }}>
-              Nagaraj
+
+            <div
+
+              style={{
+
+                color: "#FFFFFF",
+
+                fontWeight: "600",
+
+              }}
+
+            >
+
+              Reliance Retail
+
             </div>
 
             <div
+
               style={{
-                color: "#8FA6C4",
+
+                color: "#B0B0B0",
+
                 fontSize: "13px",
+
               }}
+
             >
-              Enterprise Shipper
+
+              Enterprise
+
             </div>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
   );
 }

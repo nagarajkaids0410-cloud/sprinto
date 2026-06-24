@@ -1,29 +1,5 @@
 import React from "react";
 
-const cardStyle = {
-  background: "#10243B",
-  borderRadius: "16px",
-  padding: "20px",
-  color: "#fff",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  minHeight: "140px",
-  boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
-};
-
-const valueStyle = {
-  fontSize: "36px",
-  fontWeight: "bold",
-  marginTop: "10px",
-};
-
-const growthStyle = {
-  marginTop: "12px",
-  color: "#22C55E",
-  fontWeight: "600",
-};
-
 function KpiCards() {
   const cards = [
     {
@@ -31,24 +7,28 @@ function KpiCards() {
       value: "152",
       icon: "🚛",
       growth: "+15%",
+      color: "#22C55E",
     },
     {
-      title: "Active Loads",
+      title: "Active Shipments",
       value: "87",
       icon: "📦",
       growth: "+8%",
+      color: "#C9A227",
     },
     {
-      title: "Revenue",
+      title: "Monthly Revenue",
       value: "₹12.4L",
       icon: "💰",
       growth: "+18%",
+      color: "#22C55E",
     },
     {
-      title: "Deliveries",
+      title: "Completed Deliveries",
       value: "1248",
       icon: "✅",
       growth: "99%",
+      color: "#F59E0B",
     },
   ];
 
@@ -56,25 +36,90 @@ function KpiCards() {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(4,1fr)",
+        gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
         gap: "20px",
+        marginBottom: "30px",
       }}
     >
       {cards.map((card, index) => (
-        <div key={index} style={cardStyle}>
+        <div
+          key={index}
+          style={{
+            background: "#242424",
+            border: "1px solid #3A3A3A",
+            borderRadius: "18px",
+            padding: "24px",
+            transition: "0.3s",
+            cursor: "pointer",
+            boxShadow: "0 10px 25px rgba(0,0,0,.25)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-6px)";
+            e.currentTarget.style.border = "1px solid #C9A227";
+            e.currentTarget.style.boxShadow =
+              "0 15px 35px rgba(201,162,39,.25)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0px)";
+            e.currentTarget.style.border = "1px solid #3A3A3A";
+            e.currentTarget.style.boxShadow =
+              "0 10px 25px rgba(0,0,0,.25)";
+          }}
+        >
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            <h3>{card.title}</h3>
-            <span style={{ fontSize: "30px" }}>{card.icon}</span>
+            <div>
+              <p
+                style={{
+                  color: "#B0B0B0",
+                  fontSize: "14px",
+                  marginBottom: "10px",
+                }}
+              >
+                {card.title}
+              </p>
+
+              <h1
+                style={{
+                  color: "#FFFFFF",
+                  fontSize: "38px",
+                  margin: 0,
+                }}
+              >
+                {card.value}
+              </h1>
+
+              <div
+                style={{
+                  marginTop: "18px",
+                  color: card.color,
+                  fontWeight: "600",
+                }}
+              >
+                ▲ {card.growth} this month
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: "70px",
+                height: "70px",
+                borderRadius: "18px",
+                background: "#C9A22720",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "34px",
+              }}
+            >
+              {card.icon}
+            </div>
           </div>
-
-          <div style={valueStyle}>{card.value}</div>
-
-          <div style={growthStyle}>{card.growth} this month</div>
         </div>
       ))}
     </div>

@@ -1,42 +1,36 @@
 import React from "react";
 
-function DriverManagement() {
-  const drivers = [
+function RouteOptimizer() {
+  const routes = [
     {
-      name: "Arun Kumar",
-      truck: "TN09AB1234",
-      rating: "4.9",
-      trips: 248,
-      status: "Online",
-      phone: "+91 9876543210",
+      from: "Chennai",
+      to: "Bangalore",
+      distance: "345 km",
+      eta: "6h 20m",
+      traffic: "Low",
+      fuel: "18L",
+      saving: "₹2,450",
       color: "#22C55E",
     },
     {
-      name: "Praveen",
-      truck: "TN22CD5678",
-      rating: "4.8",
-      trips: 201,
-      status: "Driving",
-      phone: "+91 9123456789",
+      from: "Coimbatore",
+      to: "Hyderabad",
+      distance: "812 km",
+      eta: "13h 10m",
+      traffic: "Medium",
+      fuel: "42L",
+      saving: "₹3,100",
       color: "#C9A227",
     },
     {
-      name: "Vignesh",
-      truck: "TN58EF7890",
-      rating: "4.7",
-      trips: 178,
-      status: "Offline",
-      phone: "+91 9988776655",
+      from: "Madurai",
+      to: "Pune",
+      distance: "1298 km",
+      eta: "20h 30m",
+      traffic: "High",
+      fuel: "65L",
+      saving: "₹4,850",
       color: "#EF4444",
-    },
-    {
-      name: "Karthik",
-      truck: "TN77GH1122",
-      rating: "5.0",
-      trips: 295,
-      status: "Online",
-      phone: "+91 9871234567",
-      color: "#22C55E",
     },
   ];
 
@@ -60,7 +54,7 @@ function DriverManagement() {
               margin: 0,
             }}
           >
-            Driver Management
+            Route Optimizer
           </h1>
 
           <p
@@ -69,7 +63,7 @@ function DriverManagement() {
               marginTop: "8px",
             }}
           >
-            Manage all registered drivers
+            AI optimized routes for faster deliveries
           </p>
         </div>
 
@@ -84,11 +78,11 @@ function DriverManagement() {
             fontWeight: "600",
           }}
         >
-          + Add Driver
+          Optimize All
         </button>
       </div>
 
-      {/* Summary */}
+      {/* Summary Cards */}
 
       <div
         style={{
@@ -99,10 +93,22 @@ function DriverManagement() {
         }}
       >
         {[
-          { title: "Total Drivers", value: "128" },
-          { title: "Online", value: "84" },
-          { title: "Driving", value: "31" },
-          { title: "Offline", value: "13" },
+          {
+            title: "Optimized Routes",
+            value: "245",
+          },
+          {
+            title: "Fuel Saved",
+            value: "18%",
+          },
+          {
+            title: "Time Saved",
+            value: "152 hrs",
+          },
+          {
+            title: "Cost Saved",
+            value: "₹4.8L",
+          },
         ].map((item, index) => (
           <div
             key={index}
@@ -124,7 +130,7 @@ function DriverManagement() {
 
             <h1
               style={{
-                color: "#FFFFFF",
+                color: "#C9A227",
                 marginTop: "12px",
                 fontSize: "36px",
               }}
@@ -135,16 +141,16 @@ function DriverManagement() {
         ))}
       </div>
 
-      {/* Driver Cards */}
+      {/* Route Cards */}
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
+          gridTemplateColumns: "repeat(auto-fit,minmax(340px,1fr))",
           gap: "20px",
         }}
       >
-        {drivers.map((driver, index) => (
+        {routes.map((route, index) => (
           <div
             key={index}
             style={{
@@ -160,117 +166,62 @@ function DriverManagement() {
                 justifyContent: "space-between",
               }}
             >
-              <div>
-                <h2
-                  style={{
-                    color: "#FFFFFF",
-                    margin: 0,
-                  }}
-                >
-                  {driver.name}
-                </h2>
-
-                <p
-                  style={{
-                    color: "#B0B0B0",
-                    marginTop: "8px",
-                  }}
-                >
-                  {driver.phone}
-                </p>
-              </div>
+              <h2
+                style={{
+                  color: "#FFFFFF",
+                  margin: 0,
+                }}
+              >
+                {route.from} → {route.to}
+              </h2>
 
               <span
                 style={{
-                  background: `${driver.color}20`,
-                  color: driver.color,
+                  background: `${route.color}20`,
+                  color: route.color,
                   padding: "6px 14px",
                   borderRadius: "20px",
-                  height: "fit-content",
                   fontSize: "12px",
                   fontWeight: "600",
                 }}
               >
-                {driver.status}
+                {route.traffic} Traffic
               </span>
             </div>
 
             <div
               style={{
-                marginTop: "20px",
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
-                gap: "15px",
+                gap: "20px",
+                marginTop: "25px",
               }}
             >
               <div>
-                <p
-                  style={{
-                    color: "#B0B0B0",
-                    marginBottom: "5px",
-                  }}
-                >
-                  Assigned Truck
-                </p>
-
-                <h4
-                  style={{
-                    color: "#FFFFFF",
-                    margin: 0,
-                  }}
-                >
-                  {driver.truck}
-                </h4>
+                <p style={{ color: "#B0B0B0" }}>Distance</p>
+                <h3 style={{ color: "#FFFFFF" }}>{route.distance}</h3>
               </div>
 
               <div>
-                <p
-                  style={{
-                    color: "#B0B0B0",
-                    marginBottom: "5px",
-                  }}
-                >
-                  Rating
-                </p>
-
-                <h4
-                  style={{
-                    color: "#C9A227",
-                    margin: 0,
-                  }}
-                >
-                  ⭐ {driver.rating}
-                </h4>
+                <p style={{ color: "#B0B0B0" }}>ETA</p>
+                <h3 style={{ color: "#FFFFFF" }}>{route.eta}</h3>
               </div>
-            </div>
 
-            <div
-              style={{
-                marginTop: "20px",
-              }}
-            >
-              <p
-                style={{
-                  color: "#B0B0B0",
-                  marginBottom: "5px",
-                }}
-              >
-                Completed Trips
-              </p>
+              <div>
+                <p style={{ color: "#B0B0B0" }}>Fuel</p>
+                <h3 style={{ color: "#22C55E" }}>{route.fuel}</h3>
+              </div>
 
-              <h3
-                style={{
-                  color: "#22C55E",
-                }}
-              >
-                {driver.trips}
-              </h3>
+              <div>
+                <p style={{ color: "#B0B0B0" }}>Savings</p>
+                <h3 style={{ color: "#22C55E" }}>{route.saving}</h3>
+              </div>
             </div>
 
             <button
               style={{
-                marginTop: "20px",
                 width: "100%",
+                marginTop: "25px",
                 background: "#C9A227",
                 color: "#121212",
                 border: "none",
@@ -280,7 +231,7 @@ function DriverManagement() {
                 fontWeight: "600",
               }}
             >
-              View Profile
+              View Optimized Route
             </button>
           </div>
         ))}
@@ -290,4 +241,4 @@ function DriverManagement() {
   );
 }
 
-export default DriverManagement;
+export default RouteOptimizer;

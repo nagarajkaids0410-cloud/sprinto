@@ -19,7 +19,7 @@ export default function App() {
 
       {/* Dashboards */}
       <Route path="/driver/dashboard/*" element={<DriverDashboard />} />
-      <Route path="/shipper/dashboard/*" element={<Dashboard />} />} />
+      <Route path="/shipper/dashboard/*" element={<Dashboard />} />
       <Route path="/admin/dashboard/*" element={<AdminDashboard />} />
 
       {/* Legacy Redirect */}

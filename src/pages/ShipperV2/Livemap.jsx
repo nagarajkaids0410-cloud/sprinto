@@ -4,27 +4,32 @@ function LiveMap() {
   return (
     <div
       style={{
-        background: "#10243B",
+        background: "#4A0910",
         borderRadius: "20px",
         padding: "20px",
         height: "420px",
         position: "relative",
         overflow: "hidden",
-        border: "1px solid rgba(255,255,255,0.08)",
+        border: "1px solid #9B1313",
+        boxShadow: "0 8px 25px rgba(0,0,0,0.35)",
       }}
     >
+      {/* Header */}
+
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           marginBottom: "20px",
+          alignItems: "center",
         }}
       >
         <div>
           <h2
             style={{
-              color: "#ffffff",
+              color: "#FFFFFF",
               margin: 0,
+              fontSize: "24px",
             }}
           >
             🗺 Live Fleet Map
@@ -32,7 +37,7 @@ function LiveMap() {
 
           <p
             style={{
-              color: "#8FA6C4",
+              color: "#FFA896",
               marginTop: "8px",
             }}
           >
@@ -42,11 +47,11 @@ function LiveMap() {
 
         <div
           style={{
-            background: "#00D9FF",
-            color: "#071426",
+            background: "#CD1C18",
+            color: "#FFFFFF",
             padding: "10px 18px",
             borderRadius: "10px",
-            fontWeight: "600",
+            fontWeight: "700",
             height: "fit-content",
           }}
         >
@@ -61,8 +66,9 @@ function LiveMap() {
           height: "320px",
           borderRadius: "16px",
           background:
-            "linear-gradient(135deg,#081321,#10243B,#0B1E33)",
+            "linear-gradient(135deg,#38000A,#4A0910,#9B1313)",
           position: "relative",
+          border: "1px solid #9B1313",
         }}
       >
         {/* Truck 1 */}
@@ -72,7 +78,7 @@ function LiveMap() {
             position: "absolute",
             top: "70px",
             left: "120px",
-            fontSize: "30px",
+            fontSize: "32px",
           }}
         >
           🚛
@@ -85,7 +91,7 @@ function LiveMap() {
             position: "absolute",
             top: "170px",
             left: "420px",
-            fontSize: "30px",
+            fontSize: "32px",
           }}
         >
           🚚
@@ -98,20 +104,20 @@ function LiveMap() {
             position: "absolute",
             top: "90px",
             left: "300px",
-            fontSize: "26px",
+            fontSize: "28px",
           }}
         >
           📍
         </div>
 
-        {/* Drop */}
+        {/* Destination */}
 
         <div
           style={{
             position: "absolute",
             top: "230px",
             left: "620px",
-            fontSize: "26px",
+            fontSize: "28px",
           }}
         >
           🎯
@@ -133,8 +139,8 @@ function LiveMap() {
             y1="90"
             x2="320"
             y2="105"
-            stroke="#00D9FF"
-            strokeWidth="3"
+            stroke="#FFA896"
+            strokeWidth="4"
             strokeDasharray="8"
           />
 
@@ -143,13 +149,13 @@ function LiveMap() {
             y1="105"
             x2="640"
             y2="240"
-            stroke="#22C55E"
-            strokeWidth="3"
+            stroke="#CD1C18"
+            strokeWidth="4"
             strokeDasharray="8"
           />
         </svg>
 
-        {/* Status */}
+        {/* Bottom Status */}
 
         <div
           style={{
@@ -157,14 +163,27 @@ function LiveMap() {
             bottom: "20px",
             left: "20px",
             display: "flex",
-            gap: "30px",
-            color: "#ffffff",
+            gap: "25px",
+            color: "#FFFFFF",
+            fontWeight: "600",
+            flexWrap: "wrap",
           }}
         >
-          <span>🟢 Running : 42</span>
-          <span>🔵 Pickup : 12</span>
-          <span>🟠 Delivery : 19</span>
-          <span>🔴 Traffic Delay : 3</span>
+          <span style={{ color: "#22C55E" }}>
+            🟢 Running : 42
+          </span>
+
+          <span style={{ color: "#FFA896" }}>
+            📍 Pickup : 12
+          </span>
+
+          <span style={{ color: "#CD1C18" }}>
+            🚚 Delivery : 19
+          </span>
+
+          <span style={{ color: "#FF6B6B" }}>
+            🚦 Traffic Delay : 3
+          </span>
         </div>
       </div>
     </div>

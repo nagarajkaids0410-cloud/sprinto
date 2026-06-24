@@ -1,186 +1,153 @@
 import React from "react";
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-} from "recharts";
-
-const revenueData = [
-  { day: "Mon", revenue: 120 },
-  { day: "Tue", revenue: 180 },
-  { day: "Wed", revenue: 140 },
-  { day: "Thu", revenue: 250 },
-  { day: "Fri", revenue: 310 },
-  { day: "Sat", revenue: 280 },
-  { day: "Sun", revenue: 360 },
-];
-
-const shipmentData = [
-  { name: "Pending", value: 18 },
-  { name: "Running", value: 42 },
-  { name: "Delivered", value: 65 },
-];
 
 function AnalyticsSection() {
+  const analytics = [
+    {
+      title: "Revenue",
+      value: "₹12.4L",
+      change: "+18%",
+      color: "#22C55E",
+    },
+    {
+      title: "Completed Trips",
+      value: "1,248",
+      change: "+12%",
+      color: "#C9A227",
+    },
+    {
+      title: "Fuel Saved",
+      value: "18%",
+      change: "+5%",
+      color: "#3B82F6",
+    },
+    {
+      title: "AI Accuracy",
+      value: "96%",
+      change: "+2%",
+      color: "#F59E0B",
+    },
+  ];
+
   return (
     <div
       style={{
-        background: "#10243B",
+        background: "#242424",
+        border: "1px solid #3A3A3A",
         borderRadius: "20px",
         padding: "25px",
-        border: "1px solid rgba(255,255,255,0.08)",
       }}
     >
-      <h2
+      <div
         style={{
-          color: "#fff",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
           marginBottom: "25px",
         }}
       >
-        📊 Revenue & Delivery Analytics
-      </h2>
+        <h2
+          style={{
+            color: "#FFFFFF",
+            margin: 0,
+          }}
+        >
+          Business Analytics
+        </h2>
+
+        <button
+          style={{
+            background: "#C9A227",
+            color: "#121212",
+            border: "none",
+            padding: "10px 18px",
+            borderRadius: "10px",
+            cursor: "pointer",
+            fontWeight: "600",
+          }}
+        >
+          Export Report
+        </button>
+      </div>
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "2fr 1fr",
+          gridTemplateColumns: "repeat(2,1fr)",
           gap: "20px",
         }}
       >
-        {/* Revenue Chart */}
-
-        <div
-          style={{
-            background: "#081321",
-            borderRadius: "15px",
-            padding: "20px",
-          }}
-        >
-          <h3 style={{ color: "#fff" }}>
-            Weekly Revenue
-          </h3>
-
-          <ResponsiveContainer width="100%" height={280}>
-            <LineChart data={revenueData}>
-              <CartesianGrid stroke="#1b3555" />
-
-              <XAxis dataKey="day" stroke="#8FA6C4" />
-
-              <YAxis stroke="#8FA6C4" />
-
-              <Tooltip />
-
-              <Line
-                type="monotone"
-                dataKey="revenue"
-                stroke="#00D9FF"
-                strokeWidth={4}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Shipment Status */}
-
-        <div
-          style={{
-            background: "#081321",
-            borderRadius: "15px",
-            padding: "20px",
-          }}
-        >
-          <h3
+        {analytics.map((item, index) => (
+          <div
+            key={index}
             style={{
-              color: "#fff",
-              marginBottom: "20px",
+              background: "#1B1B1B",
+              border: "1px solid #3A3A3A",
+              borderRadius: "16px",
+              padding: "20px",
             }}
           >
-            Shipment Status
-          </h3>
+            <p
+              style={{
+                color: "#B0B0B0",
+                margin: 0,
+              }}
+            >
+              {item.title}
+            </p>
 
-          <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={shipmentData}>
-              <CartesianGrid stroke="#1b3555" />
+            <h1
+              style={{
+                color: "#FFFFFF",
+                marginTop: "12px",
+                fontSize: "34px",
+              }}
+            >
+              {item.value}
+            </h1>
 
-              <XAxis dataKey="name" stroke="#8FA6C4" />
-
-              <YAxis stroke="#8FA6C4" />
-
-              <Tooltip />
-
-              <Bar
-                dataKey="value"
-                fill="#00D9FF"
-                radius={[10, 10, 0, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
+            <div
+              style={{
+                marginTop: "12px",
+                color: item.color,
+                fontWeight: "600",
+              }}
+            >
+              {item.change} this month
+            </div>
+          </div>
+        ))}
       </div>
-
-      {/* Bottom KPI */}
 
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3,1fr)",
-          gap: "15px",
-          marginTop: "25px",
+          marginTop: "30px",
         }}
       >
         <div
           style={{
-            background: "#081321",
-            padding: "18px",
-            borderRadius: "12px",
+            height: "12px",
+            background: "#1B1B1B",
+            borderRadius: "20px",
+            overflow: "hidden",
           }}
         >
-          <h4 style={{ color: "#8FA6C4" }}>
-            Total Revenue
-          </h4>
-
-          <h2 style={{ color: "#22C55E" }}>
-            ₹12.8 Lakh
-          </h2>
+          <div
+            style={{
+              width: "82%",
+              height: "100%",
+              background: "#C9A227",
+            }}
+          />
         </div>
 
-        <div
+        <p
           style={{
-            background: "#081321",
-            padding: "18px",
-            borderRadius: "12px",
+            marginTop: "12px",
+            color: "#B0B0B0",
           }}
         >
-          <h4 style={{ color: "#8FA6C4" }}>
-            Active Loads
-          </h4>
-
-          <h2 style={{ color: "#00D9FF" }}>
-            42
-          </h2>
-        </div>
-
-        <div
-          style={{
-            background: "#081321",
-            padding: "18px",
-            borderRadius: "12px",
-          }}
-        >
-          <h4 style={{ color: "#8FA6C4" }}>
-            Completed
-          </h4>
-
-          <h2 style={{ color: "#F59E0B" }}>
-            186
-          </h2>
-        </div>
+          Overall Business Performance : <strong style={{ color: "#FFFFFF" }}>82%</strong>
+        </p>
       </div>
     </div>
   );

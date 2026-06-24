@@ -1,38 +1,36 @@
 import React from "react";
 
-function FleetManagement() {
-  const fleet = [
+function LiveTracking() {
+  const trucks = [
     {
-      truck: "TN09AB2345",
+      id: "TN09AB1234",
       driver: "Arun Kumar",
-      capacity: "18 Tons",
-      route: "Chennai → Bangalore",
-      status: "Available",
+      location: "Chennai",
+      destination: "Bangalore",
+      speed: "68 km/h",
+      progress: 78,
+      status: "Running",
       color: "#22C55E",
     },
     {
-      truck: "TN22CD4567",
-      driver: "Vignesh",
-      capacity: "12 Tons",
-      route: "Coimbatore → Hyderabad",
-      status: "Running",
+      id: "TN22CD5678",
+      driver: "Praveen",
+      location: "Vellore",
+      destination: "Hyderabad",
+      speed: "55 km/h",
+      progress: 52,
+      status: "In Transit",
       color: "#C9A227",
     },
     {
-      truck: "TN58EF7890",
-      driver: "Praveen",
-      capacity: "20 Tons",
-      route: "Madurai → Pune",
-      status: "Maintenance",
-      color: "#EF4444",
-    },
-    {
-      truck: "TN77GH1122",
-      driver: "Karthik",
-      capacity: "15 Tons",
-      route: "Salem → Chennai",
-      status: "Available",
-      color: "#22C55E",
+      id: "TN58EF7890",
+      driver: "Vignesh",
+      location: "Madurai",
+      destination: "Pune",
+      speed: "0 km/h",
+      progress: 18,
+      status: "Loading",
+      color: "#F59E0B",
     },
   ];
 
@@ -56,7 +54,7 @@ function FleetManagement() {
               margin: 0,
             }}
           >
-            Fleet Management
+            Live Tracking
           </h1>
 
           <p
@@ -65,7 +63,7 @@ function FleetManagement() {
               marginTop: "8px",
             }}
           >
-            Manage all company vehicles
+            Real-time fleet monitoring dashboard
           </p>
         </div>
 
@@ -80,11 +78,11 @@ function FleetManagement() {
             fontWeight: "600",
           }}
         >
-          + Add Truck
+          Refresh
         </button>
       </div>
 
-      {/* Summary */}
+      {/* Statistics */}
 
       <div
         style={{
@@ -95,10 +93,10 @@ function FleetManagement() {
         }}
       >
         {[
-          { title: "Total Fleet", value: "152" },
-          { title: "Running", value: "87" },
-          { title: "Available", value: "53" },
-          { title: "Maintenance", value: "12" },
+          { title: "Online Trucks", value: "148" },
+          { title: "Deliveries", value: "92" },
+          { title: "Average Speed", value: "62 km/h" },
+          { title: "On-Time", value: "97%" },
         ].map((item, index) => (
           <div
             key={index}
@@ -120,7 +118,7 @@ function FleetManagement() {
 
             <h1
               style={{
-                color: "#FFFFFF",
+                color: "#C9A227",
                 marginTop: "12px",
                 fontSize: "36px",
               }}
@@ -131,16 +129,53 @@ function FleetManagement() {
         ))}
       </div>
 
-      {/* Fleet Cards */}
+      {/* Live Map */}
+
+      <div
+        style={{
+          background: "#242424",
+          border: "1px solid #3A3A3A",
+          borderRadius: "20px",
+          padding: "25px",
+          marginBottom: "30px",
+        }}
+      >
+        <h2
+          style={{
+            color: "#FFFFFF",
+            marginBottom: "20px",
+          }}
+        >
+          Live Fleet Map
+        </h2>
+
+        <div
+          style={{
+            height: "320px",
+            background: "#1B1B1B",
+            borderRadius: "15px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#C9A227",
+            fontSize: "28px",
+            border: "1px dashed #3A3A3A",
+          }}
+        >
+          🗺️ Interactive Map Area
+        </div>
+      </div>
+
+      {/* Tracking Cards */}
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
+          gridTemplateColumns: "repeat(auto-fit,minmax(340px,1fr))",
           gap: "20px",
         }}
       >
-        {fleet.map((truck, index) => (
+        {trucks.map((truck, index) => (
           <div
             key={index}
             style={{
@@ -148,14 +183,12 @@ function FleetManagement() {
               border: "1px solid #3A3A3A",
               borderRadius: "20px",
               padding: "22px",
-              transition: "0.3s",
             }}
           >
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                marginBottom: "20px",
               }}
             >
               <h2
@@ -164,7 +197,7 @@ function FleetManagement() {
                   margin: 0,
                 }}
               >
-                🚛 {truck.truck}
+                🚛 {truck.id}
               </h2>
 
               <span
@@ -181,42 +214,80 @@ function FleetManagement() {
               </span>
             </div>
 
-            <p style={{ color: "#B0B0B0" }}>Driver</p>
-            <h4 style={{ color: "#FFFFFF" }}>{truck.driver}</h4>
-
             <p
               style={{
                 color: "#B0B0B0",
-                marginTop: "18px",
+                marginTop: "15px",
               }}
             >
-              Route
+              Driver
             </p>
 
-            <h4
+            <h3
               style={{
-                color: "#C9A227",
+                color: "#FFFFFF",
               }}
             >
-              {truck.route}
-            </h4>
+              {truck.driver}
+            </h3>
+
+            <p style={{ color: "#B0B0B0" }}>
+              {truck.location} → {truck.destination}
+            </p>
 
             <div
               style={{
-                display: "flex",
-                justifyContent: "space-between",
                 marginTop: "20px",
               }}
             >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  color: "#FFFFFF",
+                  marginBottom: "8px",
+                }}
+              >
+                <span>Trip Progress</span>
+                <span>{truck.progress}%</span>
+              </div>
+
+              <div
+                style={{
+                  height: "10px",
+                  background: "#1B1B1B",
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  style={{
+                    width: `${truck.progress}%`,
+                    height: "100%",
+                    background: "#C9A227",
+                  }}
+                />
+              </div>
+            </div>
+
+            <div
+              style={{
+                marginTop: "20px",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
               <div>
-                <p style={{ color: "#B0B0B0" }}>Capacity</p>
+                <p style={{ color: "#B0B0B0" }}>
+                  Speed
+                </p>
 
                 <h3
                   style={{
                     color: "#22C55E",
                   }}
                 >
-                  {truck.capacity}
+                  {truck.speed}
                 </h3>
               </div>
 
@@ -232,7 +303,7 @@ function FleetManagement() {
                   height: "fit-content",
                 }}
               >
-                View Details
+                Track
               </button>
             </div>
           </div>
@@ -243,4 +314,4 @@ function FleetManagement() {
   );
 }
 
-export default FleetManagement;
+export default LiveTracking;
