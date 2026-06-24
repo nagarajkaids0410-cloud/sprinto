@@ -2,101 +2,211 @@ import React, { useState } from "react";
 import Sidebar from "./sidebar";
 import LoadBoardView from "./loardboard";
 import DriverSettingsView from "./Settings";
-import ProfileView from "./ProfileView"; // Imported your premium Profile View layout here
+import ProfileView from "./ProfileView";
 import UpdateDocumentsView from "./UpdateDocumentsView";
+import DriverEarningsView from "./Earnings";
+import NotificationsView from "./NotificationsView";
+import ReportsView from "./ReportsView";
+import RouteView from "./RouteView";
 
-// Mock driver data
+// Operational mock payload data mapping exactly to your telemetry system constants
 const driverInfo = {
   name: "Captain Nagaraj",
-  status: "ACTIVE • EN ROUTE",
-  truckNo: "IND-TN-04-AX-2026"
+  role: "Driver Elite",
+  drivingHours: "16h 12m",
+  totalTrips: "84",
+  distanceDriven: "1,628",
+  truckNo: "TN-04-AX-2026"
 };
 
 function DriverDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [showNotifications, setShowNotifications] = useState(true);
-  const [isDutyActive, setIsDutyActive] = useState(true); // Connected state for header switch
+  const [isDutyActive, setIsDutyActive] = useState(true);
+  
+  // Real-time Chat state parameters
+  const [chatInput, setChatInput] = useState("");
+  const [messages, setMessages] = useState([
+    { id: 1, sender: "shipper", label: "Adani Logistics Group", text: "Captain, make sure container seal matches manifest token ID: SPL-9041.", time: "05:45 AM" },
+    { id: 2, sender: "driver", label: "You", text: "Affirmative, check completed at loading deck. Gate pass scanned.", time: "06:02 AM" },
+    { id: 3, sender: "shipper", label: "Adani Logistics Group", text: "Excellent. Alert Bangalore Terminal dispatch when vector is 10km out.", time: "11:20 AM" }
+  ]);
 
-  // Real-time notification alerts array
-  const alerts = [
-    { id: 1, type: "AI MATCH", msg: "Optimal high-yield return load matched near drop-point.", time: "2m ago" },
-    { id: 2, type: "TRAFFIC", msg: "Heavy congestion detected on NH-48. Route optimization updated.", time: "12m ago" },
-    { id: 3, type: "SYSTEM", msg: "Digital Fuel receipt processed for Fuel Station #14.", time: "1h ago" }
-  ];
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (!chatInput.trim()) return;
 
-  const handleSignOut = () => {
-    alert("Signing out from Driver Command Console...");
+    const newMsg = {
+      id: Date.now(),
+      sender: "driver",
+      label: "You",
+      text: chatInput,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setMessages([...messages, newMsg]);
+    setChatInput("");
   };
 
-  // Helper function to render content dynamically based on the selected sidebar tab
   const renderTabContent = () => {
     switch (activeTab) {
+      case "route":
+        return <RouteView />;
       case "loads":
         return <LoadBoardView availableLoads={[]} />;
-        
+      case "reports":
+        return <ReportsView />;
+      case "notifications":
+        return <NotificationsView />; // <-- Forces notifications to render solo, hiding the dashboard grid!
       case "settings":
         return <DriverSettingsView />;
-        
       case "profile":
-        // Swapped out the old hardcoded fallback panel placeholder with the new component
         return <ProfileView />;
-
       case "update":
-        // This catch condition hooks up the core form
         return <UpdateDocumentsView />;
-        
+      case "earnings":
+        return <DriverEarningsView />;
       case "dashboard":
       default:
         return (
-          <div style={dashboardStyles.workspaceLayout}>
-            {/* CENTERPIECE INTERACTIVE ROUTE MAP WORKSPACE */}
-            <div style={dashboardStyles.mapPanel}>
-              <div style={dashboardStyles.panelHeader}>
-                <h2 style={dashboardStyles.panelTitle}>🗺️ INTERACTIVE OPTIMIZATION & TRAFFIC MAP</h2>
-                <span style={dashboardStyles.mapBadge}>
-                  {isDutyActive ? "LIVE GPS TRACKING ACTIVE" : "TELEMETRY TRANSIT SUSPENDED"}
-                </span>
-              </div>
+          <div style={dashboardStyles.blueprintContainer}>
+            
+            {/* TOP ROW: THREE PREMIUM METRIC CARDS SIDE-BY-SIDE */}
+            <div style={dashboardStyles.topMetricsGrid}>
               
-              {/* Map Canvas Mock */}
-              <div style={dashboardStyles.mapMockCanvas}>
-                {/* Overlay HUD indicators */}
-                <div style={dashboardStyles.mapHudCard}>
-                  <div style={{fontWeight: 'bold', color: '#00F0FF', marginBottom: '4px'}}>CURRENT TELEMETRY</div>
-                  <div>Vehicle: {driverInfo.truckNo}</div>
-                  <div>Avg Speed: {isDutyActive ? "62 km/h" : "0 km/h"}</div>
-                  <div>Est. Fuel Burn: {isDutyActive ? "32L / 100km" : "--"}</div>
+              {/* Card 1: Total Shifts */}
+              <div style={dashboardStyles.darkCard}>
+                <span style={dashboardStyles.metricTitle}>📊 TOTAL RUN SHIFTS</span>
+                <div style={dashboardStyles.metricMainRow}>
+                  <span style={dashboardStyles.metricBigValue}>{driverInfo.totalTrips}</span>
+                  <span style={dashboardStyles.growthBadge}>+4.2% MONTHLY</span>
                 </div>
-
-                {/* Dynamic HUD route pointers */}
-                <div style={dashboardStyles.mapRouteOverlay}>
-                  <div>📍 Pickup Hub A (Chennai) ———[AI Optimized Route: Clean]———&gt; 🏁 Drop Terminal B (Bangalore)</div>
+                {/* Sparkline Telemetry Bars */}
+                <div style={dashboardStyles.sparkGraph}>
+                  <div style={{ ...dashboardStyles.graphBar, height: "40%", backgroundColor: "#1C2541" }}></div>
+                  <div style={{ ...dashboardStyles.graphBar, height: "60%", backgroundColor: "#1C2541" }}></div>
+                  <div style={{ ...dashboardStyles.graphBar, height: "50%", backgroundColor: "#2563EB" }}></div>
+                  <div style={{ ...dashboardStyles.graphBar, height: "85%", backgroundColor: "#00F0FF" }}></div>
+                  <div style={{ ...dashboardStyles.graphBar, height: "70%", backgroundColor: "#10B981" }}></div>
                 </div>
+              </div>
 
-                <div style={dashboardStyles.mapCenterTarget}>
-                  {isDutyActive && <div style={dashboardStyles.radarPulse}></div>}
-                  <span style={{fontSize: '2rem', zIndex: 2}}>🚚</span>
+              {/* Card 2: Distance Tracked */}
+              <div style={dashboardStyles.darkCard}>
+                <span style={dashboardStyles.metricTitle}>🛣️ DISTANCE TRACKED</span>
+                <div style={dashboardStyles.metricMainRow}>
+                  <span style={dashboardStyles.metricBigValue}>
+                    {driverInfo.distanceDriven} <span style={{ fontSize: "1rem", color: "#8D99AE" }}>km</span>
+                  </span>
+                </div>
+                {/* Mini graph telemetry */}
+                <div style={dashboardStyles.sparkGraph}>
+                  <div style={{ ...dashboardStyles.graphBar, height: "30%", backgroundColor: "#2563EB" }}></div>
+                  <div style={{ ...dashboardStyles.graphBar, height: "55%", backgroundColor: "#2563EB" }}></div>
+                  <div style={{ ...dashboardStyles.graphBar, height: "75%", backgroundColor: "#00F0FF" }}></div>
+                  <div style={{ ...dashboardStyles.graphBar, height: "40%", backgroundColor: "#1C2541" }}></div>
+                  <div style={{ ...dashboardStyles.graphBar, height: "90%", backgroundColor: "#10B981" }}></div>
+                </div>
+              </div>
+
+              {/* Card 3: Dispatched Asset Details */}
+              <div style={{ ...dashboardStyles.darkCard, justifyContent: "space-between" }}>
+                <div>
+                  <span style={dashboardStyles.metricTitle}>🚍 DISPATCHED ASSET DETAILS</span>
+                  <div style={dashboardStyles.vehicleSpecGrid}>
+                    <div>
+                      <span style={dashboardStyles.specLabel}>Registration ID</span>
+                      <p style={dashboardStyles.specValue}>{driverInfo.truckNo}</p>
+                    </div>
+                    <div>
+                      <span style={dashboardStyles.specLabel}>Telemetry Link</span>
+                      <p style={{ ...dashboardStyles.specValue, color: "#10B981" }}>● SECURE LINKED</p>
+                    </div>
+                  </div>
+                </div>
+                <div style={dashboardStyles.assetFooterEmoji}>🚛 Operational Fleet Asset</div>
+              </div>
+
+            </div>
+
+            {/* MIDDLE ROW: FULL WIDTH SCHEDULE PANEL */}
+            <div style={dashboardStyles.darkCard}>
+              <h3 style={dashboardStyles.blockHeaderTitle}>📋 UPCOMING SCHEDULED CONTRACTS</h3>
+              <div style={dashboardStyles.tripsTable}>
+                <div style={dashboardStyles.tableRow}>
+                  <div style={{ fontWeight: "700", color: "#FFFFFF" }}>Chennai Port</div>
+                  <div style={dashboardStyles.dashedDividerRoute}>6h 15m</div>
+                  <div style={{ fontWeight: "700", color: "#FFFFFF" }}>Bangalore Hub</div>
+                  <div style={dashboardStyles.tableMetaText}>24/06/2026</div>
+                  <span style={{ ...dashboardStyles.statusPill, backgroundColor: "rgba(0, 240, 255, 0.1)", color: "#00F0FF", border: "1px solid #00F0FF" }}>En Route</span>
+                </div>
+                <div style={dashboardStyles.tableRow}>
+                  <div style={{ fontWeight: "700", color: "#FFFFFF" }}>Hyderabad</div>
+                  <div style={dashboardStyles.dashedDividerRoute}>11h 30m</div>
+                  <div style={{ fontWeight: "700", color: "#FFFFFF" }}>Mumbai Terminal</div>
+                  <div style={dashboardStyles.tableMetaText}>26/06/2026</div>
+                  <span style={{ ...dashboardStyles.statusPill, backgroundColor: "rgba(16, 185, 129, 0.1)", color: "#10B981", border: "1px solid #10B981" }}>Planned</span>
                 </div>
               </div>
             </div>
 
-            {/* NOTIFICATIONS DRAWER PANEL */}
-            {showNotifications && (
-              <div style={dashboardStyles.notificationDrawer}>
-                <h3 style={dashboardStyles.drawerTitle}>CRITICAL FEED</h3>
-                <div style={dashboardStyles.drawerList}>
-                  {alerts.map(alert => (
-                    <div key={alert.id} style={dashboardStyles.alertCard}>
-                      <div style={dashboardStyles.alertMeta}>
-                        <span style={dashboardStyles.alertType}>{alert.type}</span>
-                        <span style={dashboardStyles.alertTime}>{alert.time}</span>
-                      </div>
-                      <p style={dashboardStyles.alertText}>{alert.msg}</p>
-                    </div>
-                  ))}
+            {/* BOTTOM ROW: CHAT WITH SHIPPER CONSOLE */}
+            <div style={dashboardStyles.darkCard}>
+              <div style={dashboardStyles.chatHeader}>
+                <h3 style={{ ...dashboardStyles.blockHeaderTitle, margin: 0 }}>💬 SECURE SHIPPER DISPATCH CHANNEL</h3>
+                <div style={dashboardStyles.activeContactBadge}>
+                  <span style={dashboardStyles.onlinePulse}></span> Connected To: Adani Logistics Terminal
                 </div>
               </div>
-            )}
+
+              {/* Message Feed Display Window */}
+              <div style={dashboardStyles.chatMessageWindow}>
+                {messages.map((msg) => {
+                  const isDriver = msg.sender === "driver";
+                  return (
+                    <div 
+                      key={msg.id} 
+                      style={{
+                        ...dashboardStyles.chatRow,
+                        justifyContent: isDriver ? "flex-end" : "flex-start"
+                      }}
+                    >
+                      <div style={{ maxWidth: "70%", display: "flex", flexDirection: "column" }}>
+                        <span style={{
+                          ...dashboardStyles.chatMetaName,
+                          textAlign: isDriver ? "right" : "left"
+                        }}>
+                          {msg.label} • <span style={{ fontWeight: "normal", color: "#8D99AE" }}>{msg.time}</span>
+                        </span>
+                        <div style={{
+                          ...dashboardStyles.chatBubbleBase,
+                          ...(isDriver ? dashboardStyles.chatBubbleDriver : dashboardStyles.chatBubbleShipper)
+                        }}>
+                          {msg.text}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Interactive Messenger Input Actions */}
+              <form onSubmit={handleSendMessage} style={dashboardStyles.chatInputArea}>
+                <button type="button" style={dashboardStyles.chatAttachBtn} onClick={() => alert("Upload Manifest Scan/Asset Document Option Triggered.")}>
+                  📎
+                </button>
+                <input 
+                  type="text" 
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="Transmit securely to cargo loading manager..." 
+                  style={dashboardStyles.chatInputField}
+                />
+                <button type="submit" style={dashboardStyles.chatSendBtn}>
+                  🚀 Transmit
+                </button>
+              </form>
+            </div>
+
           </div>
         );
     }
@@ -104,342 +214,419 @@ function DriverDashboard() {
 
   return (
     <div style={dashboardStyles.container}>
-      {/* UPGRADED LOGISTICS SIDEBAR */}
       <Sidebar 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         driverData={{
-          ...driverInfo,
-          status: isDutyActive ? "ACTIVE • EN ROUTE" : "OFFLINE • INACTIVE"
+          name: driverInfo.name,
+          status: isDutyActive ? "ACTIVE • RADAR ON" : "CONSOLE TERMINATED"
         }} 
-        onSignOut={handleSignOut} 
+        onSignOut={() => alert("Exiting Driver Command Suite...")} 
       />
 
-      {/* Main Console Stage */}
       <main style={dashboardStyles.mainContent}>
-        
-        {/* Header Bar */}
+        {/* PREMIUM CYBER HEADER DASH BAR */}
         <header style={dashboardStyles.header}>
-          <div>
-            <h1 style={dashboardStyles.headerTitle}>DRIVER TELEMETRY BASE</h1>
-            <p style={dashboardStyles.headerSubtitle}>Operational Module {" > "} {activeTab.toUpperCase()}</p>
+          <div style={dashboardStyles.searchContainer}>
+            <span style={{ marginRight: "8px", color: "#8D99AE" }}>🔍</span>
+            <input type="text" placeholder="Scan telemetry commands..." style={dashboardStyles.searchInput} />
           </div>
           
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            {/* Custom Modern Premium Toggle Switch */}
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <span style={{ fontSize: "0.8rem", fontWeight: "700", color: isDutyActive ? "#00F0FF" : "#EF233C" }}>
-                DUTY: {isDutyActive ? "ON" : "OFF"}
-              </span>
-              <div 
-                style={{
-                  ...dashboardStyles.switchTrack,
-                  backgroundColor: isDutyActive ? "#2563EB" : "#374151"
-                }}
-                onClick={() => setIsDutyActive(!isDutyActive)}
-              >
-                <div style={{
-                  ...dashboardStyles.switchKnob,
-                  transform: isDutyActive ? "translateX(20px)" : "translateX(0px)"
-                }} />
-              </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <div style={dashboardStyles.drivingHoursBox}>
+              ⚡ SHIFT LOGS: <strong style={{ color: "#00F0FF", marginLeft: "4px" }}>{driverInfo.drivingHours}</strong>
             </div>
 
-            {activeTab === "dashboard" && (
-              <button 
-                style={dashboardStyles.notificationToggle} 
-                onClick={() => setShowNotifications(!showNotifications)}
-              >
-                {showNotifications ? "❌ Hide Feed" : `🔔 Alerts (${alerts.length})`}
-              </button>
-            )}
+            {/* Duty Toggle Switch */}
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <span style={{ fontSize: "0.75rem", fontWeight: "700", color: isDutyActive ? "#10B981" : "#EF233C" }}>
+                {isDutyActive ? "DUTY ACTIVE" : "OFF-LINE"}
+              </span>
+              <label style={dashboardStyles.switchLabel}>
+                <input 
+                  type="checkbox" 
+                  checked={isDutyActive} 
+                  onChange={() => setIsDutyActive(!isDutyActive)} 
+                  style={{ display: "none" }} 
+                />
+                <div style={{ 
+                  ...dashboardStyles.switchTrack, 
+                  backgroundColor: isDutyActive ? "#10B981" : "#1C2541" 
+                }}>
+                  <div style={{ 
+                    ...dashboardStyles.switchKnob, 
+                    transform: isDutyActive ? "translateX(20px)" : "translateX(2px)" 
+                  }} />
+                </div>
+              </label>
+            </div>
+            
+            <div style={dashboardStyles.userHeaderProfile}>
+              <div style={dashboardStyles.avatarCircle}>👨‍✈️</div>
+              <div style={{ textAlign: "left" }}>
+                <p style={dashboardStyles.profileHeaderName}>{driverInfo.name}</p>
+                <span style={dashboardStyles.profileHeaderRole}>{driverInfo.role}</span>
+              </div>
+            </div>
           </div>
         </header>
 
-        {/* LOGISTICS KPI CARDS SECTION */}
-        {activeTab === "dashboard" && (
-          <section style={dashboardStyles.kpiGrid}>
-            <div style={dashboardStyles.kpiCard}>
-              <div style={dashboardStyles.kpiHeader}>
-                <span style={dashboardStyles.kpiLabel}>AVAILABLE TRUCKS</span>
-                <span style={dashboardStyles.kpiIcon}>🚛</span>
-              </div>
-              <div style={dashboardStyles.kpiValue}>24 <span style={dashboardStyles.kpiSubtext}>Active Fleet</span></div>
-            </div>
-
-            <div style={dashboardStyles.kpiCard}>
-              <div style={dashboardStyles.kpiHeader}>
-                <span style={dashboardStyles.kpiLabel}>ACTIVE LOADS</span>
-                <span style={dashboardStyles.kpiIcon}>📦</span>
-              </div>
-              <div style={dashboardStyles.kpiValue}>12 <span style={dashboardStyles.kpiSubtext}>In Transit</span></div>
-            </div>
-
-            <div style={dashboardStyles.kpiCard}>
-              <div style={dashboardStyles.kpiHeader}>
-                <span style={dashboardStyles.kpiLabel}>ESTIMATED REVENUE</span>
-                <span style={dashboardStyles.kpiIcon}>💰</span>
-              </div>
-              <div style={dashboardStyles.kpiValue}>$14,250 <span style={dashboardStyles.kpiSubtext}>This Month</span></div>
-            </div>
-
-            <div style={dashboardStyles.kpiCard}>
-              <div style={dashboardStyles.kpiHeader}>
-                <span style={dashboardStyles.kpiLabel}>COMPLETED RUNS</span>
-                <span style={dashboardStyles.kpiIcon}>🏁</span>
-              </div>
-              <div style={dashboardStyles.kpiValue}>98.4% <span style={dashboardStyles.kpiSubtext}>On-Time Rating</span></div>
-            </div>
-          </section>
-        )}
-
-        {/* Dynamic Workspace Placement */}
+        {/* Dynamic Layout Slot */}
         {renderTabContent()}
-
       </main>
     </div>
   );
 }
 
-// Layout Styles Object
+// Layout styles optimized with explicit background configurations to block re-render errors
 const dashboardStyles = {
-  container: {
+ container: {
     display: "flex",
     width: "100vw",
     height: "100vh",
-    backgroundColor: "#0A0F1D", 
+    backgroundColor: "#0A0F1D",
     color: "#FFFFFF",
     overflow: "hidden",
     fontFamily: "'Segoe UI', Roboto, sans-serif"
   },
   mainContent: {
     flexGrow: 1,
-    padding: "25px",
+    padding: "24px",
     display: "flex",
     flexDirection: "column",
-    gap: "20px",
+    gap: "24px",
     overflowY: "auto",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    borderLeft: "1px solid #1C2541",
   },
   header: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    borderBottom: "1px solid #1C2541",
-    paddingBottom: "15px"
-  },
-  headerTitle: {
-    fontSize: "1.6rem",
-    fontWeight: "800",
-    letterSpacing: "2px",
-    color: "#FFFFFF",
-    margin: 0
-  },
-  headerSubtitle: {
-    fontSize: "0.85rem",
-    color: "#00F0FF", 
-    margin: "4px 0 0 0",
-    fontWeight: "600"
-  },
-  switchTrack: {
-    width: "44px",
-    height: "24px",
+    backgroundColor: "#111827",
+    border: "1px solid #1C2541",
+    padding: "14px 24px",
     borderRadius: "12px",
-    padding: "2px",
+    boxShadow: "0 4px 20px rgba(0,0,0,0.2)"
+  },
+  searchContainer: {
     display: "flex",
     alignItems: "center",
+    backgroundColor: "#0A0F1D",
+    border: "1px solid #1C2541",
+    padding: "8px 16px",
+    borderRadius: "8px",
+    width: "300px"
+  },
+  searchInput: {
+    border: "none",
+    backgroundColor: "transparent",
+    outline: "none",
+    color: "#FFFFFF",
+    width: "100%",
+    fontSize: "0.85rem"
+  },
+  drivingHoursBox: {
+    backgroundColor: "rgba(0, 240, 255, 0.05)",
+    border: "1px solid #1C2541",
+    padding: "8px 14px",
+    borderRadius: "8px",
+    fontSize: "0.8rem",
+    color: "#8D99AE",
+    fontWeight: "700",
+    letterSpacing: "0.5px"
+  },
+  switchLabel: {
     cursor: "pointer",
-    transition: "background-color 0.2s ease",
-    boxSizing: "border-box"
+    display: "inline-block"
+  },
+  switchTrack: {
+    width: "42px",
+    height: "24px",
+    borderRadius: "12px",
+    position: "relative",
+    transition: "background-color 0.2s ease"
   },
   switchKnob: {
     width: "20px",
     height: "20px",
-    borderRadius: "50%",
     backgroundColor: "#FFFFFF",
+    borderRadius: "50%",
+    position: "absolute",
+    top: "2px",
     transition: "transform 0.2s ease",
-    boxShadow: "0px 1px 3px rgba(0,0,0,0.4)"
+    boxShadow: "0 2px 4px rgba(0,0,0,0.4)"
   },
-  notificationToggle: {
-    background: "#1C2541",
-    border: "1px solid #00F0FF",
+  userHeaderProfile: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    borderLeft: "1px solid #1C2541",
+    paddingLeft: "20px"
+  },
+  avatarCircle: {
+    width: "36px",
+    height: "36px",
+    borderRadius: "50%",
+    backgroundColor: "#1F2937",
+    border: "1px solid #1C2541",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.1rem"
+  },
+  profileHeaderName: {
+    margin: 0,
+    fontWeight: "700",
+    fontSize: "0.85rem",
+    color: "#FFFFFF"
+  },
+  profileHeaderRole: {
+    fontSize: "0.75rem",
     color: "#00F0FF",
-    padding: "8px 16px",
-    borderRadius: "6px",
-    cursor: "pointer",
-    fontWeight: "600",
-    boxShadow: "0 0 10px rgba(0, 240, 255, 0.15)"
+    fontWeight: "600"
   },
-  kpiGrid: {
+  blueprintContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "24px",
+    flexGrow: 1
+  },
+  topMetricsGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    gap: "20px"
+    gridTemplateColumns: "1fr 1fr 1fr",
+    gap: "24px"
   },
-  kpiCard: {
+  darkCard: {
     backgroundColor: "#111827",
     border: "1px solid #1C2541",
-    borderRadius: "8px",
-    padding: "20px",
-    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
-  },
-  kpiHeader: {
+    borderRadius: "12px",
+    padding: "24px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.15)",
     display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "12px"
+    flexDirection: "column",
+    gap: "12px"
   },
-  kpiLabel: {
-    fontSize: "0.8rem",
-    color: "#9CA3AF",
+  metricTitle: {
+    fontSize: "0.75rem",
+    color: "#8D99AE",
     fontWeight: "700",
     letterSpacing: "1px"
   },
-  kpiIcon: {
-    fontSize: "1.2rem"
-  },
-  kpiValue: {
-    fontSize: "1.75rem",
-    fontWeight: "700",
-    color: "#00F0FF"
-  },
-  kpiSubtext: {
-    fontSize: "0.8rem",
-    color: "#9CA3AF",
-    display: "block",
-    fontWeight: "normal",
-    marginTop: "2px"
-  },
-  workspaceLayout: {
-    display: "flex",
-    gap: "20px",
-    flexGrow: 1,
-    minHeight: "450px"
-  },
-  mapPanel: {
-    flexGrow: 2,
-    backgroundColor: "#111827",
-    border: "1px solid #1C2541",
-    borderRadius: "10px",
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden"
-  },
-  panelHeader: {
-    padding: "15px 20px",
-    borderBottom: "1px solid #1C2541",
+  metricMainRow: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "baseline"
   },
-  panelTitle: {
-    fontSize: "1rem",
-    margin: 0,
-    fontWeight: "700",
+  metricBigValue: {
+    fontSize: "2rem",
+    fontWeight: "800",
     color: "#FFFFFF"
   },
-  mapBadge: {
-    backgroundColor: "rgba(0, 240, 255, 0.1)",
-    border: "1px solid #00F0FF",
-    color: "#00F0FF",
-    fontSize: "0.75rem",
+  growthBadge: {
+    fontSize: "0.7rem",
+    color: "#10B981",
+    backgroundColor: "rgba(16, 185, 129, 0.1)",
+    border: "1px solid #10B981",
     padding: "4px 8px",
     borderRadius: "4px",
     fontWeight: "700"
   },
-  mapMockCanvas: {
+  sparkGraph: {
+    display: "flex",
+    alignItems: "flex-end",
+    gap: "6px",
+    height: "45px",
+    marginTop: "5px"
+  },
+  graphBar: {
     flexGrow: 1,
-    backgroundColor: "#070B14", 
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundImage: "radial-gradient(#1C2541 1px, transparent 1px)",
-    backgroundSize: "24px 24px"
+    borderRadius: "2px"
   },
-  mapHudCard: {
-    position: "absolute",
-    top: "15px",
-    left: "15px",
-    backgroundColor: "rgba(11, 19, 43, 0.85)",
-    border: "1px solid #3A506B",
-    borderRadius: "6px",
-    padding: "12px",
+  blockHeaderTitle: {
     fontSize: "0.8rem",
-    color: "#E2E8F0"
-  },
-  mapRouteOverlay: {
-    position: "absolute",
-    bottom: "15px",
-    backgroundColor: "rgba(11, 19, 43, 0.9)",
-    border: "1px solid #00F0FF",
-    borderRadius: "6px",
-    padding: "10px 20px",
-    fontSize: "0.85rem",
-    color: "#FFFFFF"
-  },
-  mapCenterTarget: {
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  radarPulse: {
-    position: "absolute",
-    width: "60px",
-    height: "60px",
-    border: "2px solid #00F0FF",
-    borderRadius: "50%",
-    backgroundColor: "rgba(0, 240, 255, 0.1)"
-  },
-  notificationDrawer: {
-    width: "320px",
-    backgroundColor: "#111827",
-    border: "1px solid #1C2541",
-    borderRadius: "10px",
-    padding: "15px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px"
-  },
-  drawerTitle: {
-    fontSize: "0.9rem",
     fontWeight: "700",
-    color: "#EF233C", 
-    margin: 0,
-    letterSpacing: "1px"
+    color: "#8D99AE",
+    textTransform: "uppercase",
+    letterSpacing: "1px",
+    display: "block",
+    marginBottom: "4px"
   },
-  drawerList: {
+  tripsTable: {
     display: "flex",
     flexDirection: "column",
     gap: "12px",
-    overflowY: "auto"
+    marginTop: "8px"
   },
-  alertCard: {
-    backgroundColor: "#1F2937",
-    borderLeft: "4px solid #00F0FF",
-    padding: "10px 12px",
-    borderRadius: "4px"
+  tableRow: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "16px 20px",
+    backgroundColor: "#0A0F1D",
+    border: "1px solid #1C2541",
+    borderRadius: "8px",
+    fontSize: "0.85rem"
   },
-  alertMeta: {
+  dashedDividerRoute: {
+    flexGrow: 1,
+    textAlign: "center",
+    color: "#8D99AE",
+    fontSize: "0.75rem",
+    borderBottom: "1px dashed #1C2541",
+    margin: "0 25px",
+    lineHeight: "0.1rem"
+  },
+  tableMetaText: {
+    color: "#8D99AE",
+    fontSize: "0.8rem",
+    marginLeft: "20px",
+    marginRight: "20px"
+  },
+  statusPill: {
+    padding: "6px 14px",
+    borderRadius: "4px",
+    fontSize: "0.75rem",
+    fontWeight: "700",
+    minWidth: "80px",
+    textAlign: "center"
+  },
+  vehicleSpecGrid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "16px",
+    marginTop: "12px"
+  },
+  specLabel: {
+    fontSize: "0.65rem",
+    color: "#8D99AE",
+    fontWeight: "700",
+    textTransform: "uppercase",
+    letterSpacing: "0.5px"
+  },
+  specValue: {
+    margin: "4px 0 0 0",
+    fontSize: "0.85rem",
+    fontWeight: "700",
+    color: "#FFFFFF"
+  },
+  assetFooterEmoji: {
+    fontSize: "0.8rem",
+    color: "#8D99AE",
+    borderTop: "1px solid #1C2541",
+    paddingTop: "12px",
+    marginTop: "8px",
+    fontWeight: "600"
+  },
+
+  // Premium Dispatch Chat Sub-Layout Styles 
+  chatHeader: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    borderBottom: "1px solid #1C2541",
+    paddingBottom: "12px"
+  },
+  activeContactBadge: {
+    backgroundColor: "#0A0F1D",
+    border: "1px solid #1C2541",
+    padding: "6px 12px",
+    borderRadius: "6px",
+    fontSize: "0.75rem",
+    color: "#FFFFFF",
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    fontWeight: "600"
+  },
+  onlinePulse: {
+    width: "8px",
+    height: "8px",
+    backgroundColor: "#10B981",
+    borderRadius: "50%",
+    display: "inline-block",
+    boxShadow: "0 0 8px #10B981"
+  },
+  chatMessageWindow: {
+    backgroundColor: "#0A0F1D",
+    border: "1px solid #1C2541",
+    borderRadius: "8px",
+    padding: "16px",
+    height: "180px",
+    overflowY: "auto",
+    display: "flex",
+    flexDirection: "column",
+    gap: "14px"
+  },
+  chatRow: {
+    display: "flex",
+    width: "100%"
+  },
+  chatMetaName: {
+    fontSize: "0.7rem",
+    fontWeight: "700",
+    color: "#00F0FF",
     marginBottom: "4px"
   },
-  alertType: {
-    fontSize: "0.7rem",
-    fontWeight: "800",
-    color: "#00F0FF"
+  chatBubbleBase: {
+    padding: "10px 14px",
+    borderRadius: "8px",
+    fontSize: "0.82rem",
+    lineHeight: "1.4"
   },
-  alertTime: {
-    fontSize: "0.7rem",
-    color: "#9CA3AF"
+  chatBubbleShipper: {
+    backgroundColor: "#1F2937",
+    color: "#FFFFFF",
+    borderLeft: "3px solid #8D99AE"
   },
-  alertText: {
-    fontSize: "0.8rem",
-    margin: 0,
-    color: "#E5E7EB",
-    lineHeight: "1.3"
+  chatBubbleDriver: {
+    backgroundColor: "#2563EB",
+    color: "#FFFFFF",
+    borderRight: "3px solid #00F0FF"
+  },
+  chatInputArea: {
+    display: "flex",
+    gap: "12px",
+    alignItems: "center",
+    marginTop: "4px"
+  },
+  chatAttachBtn: {
+    backgroundColor: "#1F2937",
+    border: "1px solid #1C2541",
+    color: "#FFFFFF",
+    borderRadius: "6px",
+    width: "42px",
+    height: "42px",
+    cursor: "pointer",
+    fontSize: "1.1rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "background-color 0.2s"
+  },
+  chatInputField: {
+    flexGrow: 1,
+    backgroundColor: "#0A0F1D",
+    border: "1px solid #1C2541",
+    borderRadius: "6px",
+    padding: "0 16px",
+    height: "42px",
+    color: "#FFFFFF",
+    fontSize: "0.85rem",
+    outline: "none"
+  },
+  chatSendBtn: {
+    backgroundColor: "#2563EB",
+    border: "none",
+    color: "#FFFFFF",
+    borderRadius: "6px",
+    padding: "0 18px",
+    height: "42px",
+    fontWeight: "700",
+    fontSize: "0.85rem",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(37, 99, 235, 0.2)",
+    transition: "opacity 0.2s"
   }
 };
 

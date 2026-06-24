@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Imported Link from react-router-dom
 
 export default function LanguageSelection() {
   const [selectedLang, setSelectedLang] = useState("en");
@@ -54,6 +54,14 @@ export default function LanguageSelection() {
               </button>
             );
           })}
+        </div>
+
+        {/* Navigation Redirect Link to Login Interface */}
+        <div style={styles.loginRedirectWrapper}>
+          <span style={{ color: "#9CA3AF" }}>Already registered? </span>
+          <Link to="/login" style={styles.loginLink}>
+            Sign In to Terminal
+          </Link>
         </div>
       </div>
 
@@ -161,6 +169,20 @@ const styles = {
     color: "#00F0FF",
     fontWeight: "bold",
     fontSize: "1.2rem"
+  },
+  loginRedirectWrapper: {
+    marginTop: "24px",
+    fontSize: "0.88rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  loginLink: {
+    color: "#00F0FF",
+    textDecoration: "none",
+    fontWeight: "700",
+    marginLeft: "5px",
+    transition: "color 0.15s ease"
   },
   nextButton: {
     position: "absolute",
