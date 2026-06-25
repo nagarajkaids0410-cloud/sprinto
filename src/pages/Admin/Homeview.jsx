@@ -1,4 +1,4 @@
-import { styles } from "./style";
+
 import { useOrders } from "../../OrderContext";
 
 function HomeView() {
@@ -9,7 +9,7 @@ function HomeView() {
       <section style={styles.card}>
         <h3 style={{ marginBottom: "0.5rem" }}>🏭 Total Global Freight Pipelines</h3>
         <p style={{ color: "#6b7280", marginBottom: "1rem" }}>Overview audit monitor across corporate shippers and network drivers</p>
-        
+
         <div style={styles.tableWrapper}>
           <table style={styles.table}>
             <thead>
@@ -29,7 +29,7 @@ function HomeView() {
                   <td style={styles.td}>{load.shipper || "Enterprise Vendor"}</td>
                   <td style={styles.td}>{load.route}</td>
                   <td style={styles.td}>{load.weight}</td>
-                  <td style={{...styles.td, color: "#10b981"}}><strong>{load.price}</strong></td>
+                  <td style={{ ...styles.td, color: "#10b981" }}><strong>{load.price}</strong></td>
                   <td style={styles.td}>
                     <span style={load.status === "Admin Review" ? styles.badgeReview : styles.badgeReady}>
                       {load.status}

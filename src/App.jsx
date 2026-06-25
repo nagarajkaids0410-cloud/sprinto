@@ -12,6 +12,8 @@ import DriverSettingsView from "./pages/Driver/Settings";
 import Dashboard from "./pages/ShipperV2/Dashboard";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import ProfileView from "./pages/Driver/ProfileView";
+import AgencyRegistration from "./pages/Authentication/Signup/AgencyRegistration";
+import AgencyDashboard from "./pages/Agency/AgencyDashboard";
 
 export default function App() {
   return (
@@ -30,6 +32,8 @@ export default function App() {
 
       {/* 5. Onboarding Phase: Compliance Verification */}
       <Route path="/verify-documents" element={<DocumentVerification />} />
+
+      <Route path="/register-agency" element={<AgencyRegistration />} />
 
       {/* Authentication */}
       <Route path="/login" element={<Login />} />
@@ -59,6 +63,9 @@ export default function App() {
       />
 
       <Route path="profile" element={<ProfileView />} />
+
+      <Route path="/agency/dashboard" element={<AgencyDashboard />} />
+      
 
       {/* Unknown Routes Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />

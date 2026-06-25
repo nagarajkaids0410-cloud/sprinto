@@ -1,5 +1,6 @@
-import { styles } from "./style";
+
 import { useOrders } from "../../OrderContext";
+
 
 function RequestMatching() {
   const { globalLoads, dispatchToDrivers } = useOrders();
@@ -36,12 +37,12 @@ function RequestMatching() {
               <th style={styles.th}>Target Route Matrix</th>
               <th style={styles.th}>Fleet Range Distance</th>
               <th style={styles.th}>Status Condition</th>
-              <th style={{...styles.th, textAlign: "center"}}>Enforce Routing Block</th>
+              <th style={{ ...styles.th, textAlign: "center" }}>Enforce Routing Block</th>
             </tr>
           </thead>
           <tbody>
             {pendingMatching.length === 0 ? (
-              <tr><td colSpan="6" style={{...styles.td, textAlign:"center", padding:"2rem"}}>No pending client freight loads currently require gateway verification clearance blocks.</td></tr>
+              <tr><td colSpan="6" style={{ ...styles.td, textAlign: "center", padding: "2rem" }}>No pending client freight loads currently require gateway verification clearance blocks.</td></tr>
             ) : (
               pendingMatching.map((load) => {
                 const distanceCheck = parseFloat(load.distance) <= 5.0;
@@ -50,12 +51,12 @@ function RequestMatching() {
                     <td style={styles.td}><strong>{load.id}</strong></td>
                     <td style={styles.td}>{load.shipper}</td>
                     <td style={styles.td}>{load.route}</td>
-                    <td style={{...styles.td, color: distanceCheck ? "#10b981" : "#ef4444", fontWeight: "700"}}>
+                    <td style={{ ...styles.td, color: distanceCheck ? "#10b981" : "#ef4444", fontWeight: "700" }}>
                       {load.distance} {distanceCheck ? "📢 (Under 5km)" : "❌ (Too Far)"}
                     </td>
                     <td style={styles.td}><span style={styles.badgeReview}>{load.status}</span></td>
-                    <td style={{...styles.td, textAlign: "center"}}>
-                      <button 
+                    <td style={{ ...styles.td, textAlign: "center" }}>
+                      <button
                         style={{
                           ...styles.primaryBtn,
                           backgroundColor: distanceCheck ? "#10b981" : "#6b7280",

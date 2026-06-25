@@ -1,6 +1,3 @@
-// src/pages/Driver/style.js
-
-// Styles for Settings view panels
 export const settingsStyles = {
   container: {
     backgroundColor: "#0B132B",

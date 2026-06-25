@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AccountTypeSelection() {
-  const [accountType, setAccountType] = useState("individual");
+  const [accountType, setAccountType] = useState("agency");
   const navigate = useNavigate();
 
   const handleNext = () => {
     if (accountType === "individual") {
       navigate("/register-individual");
     } else {
-      navigate("/login");
+      navigate("/register-agency");
     }
   };
 
@@ -106,7 +106,7 @@ const styles = {
   },
   brandSubtitle: {
     fontSize: "0.8rem",
-    color: "#00F0FF",
+    color: "#D97706",
     letterSpacing: "1px",
     margin: 0,
     fontWeight: "600"
@@ -138,7 +138,7 @@ const styles = {
     gap: "20px"
   },
   choicePanel: {
-    backgroundColor: "#1F2937",
+    backgroundColor: "#2a3446ff",
     border: "1px solid #374151",
     borderRadius: "10px",
     padding: "25px 20px",
@@ -152,7 +152,7 @@ const styles = {
   },
   choicePanelActive: {
     backgroundColor: "rgba(0, 240, 255, 0.03)",
-    borderColor: "#00F0FF",
+    borderColor: "#D97706",
     boxShadow: "0 0 15px rgba(0, 240, 255, 0.15)"
   },
   panelIcon: {
@@ -179,14 +179,14 @@ const styles = {
     width: "8px",
     height: "8px",
     borderRadius: "50%",
-    backgroundColor: "#00F0FF",
-    boxShadow: "0 0 8px #00F0FF"
+    backgroundColor: "#D97706",
+    boxShadow: "0 0 8px #D97706"
   },
   nextButton: {
     position: "absolute",
     bottom: "40px",
     right: "40px",
-    backgroundColor: "#2563EB",
+    backgroundColor: "#D97706",
     color: "#FFFFFF",
     border: "none",
     borderRadius: "6px",

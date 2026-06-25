@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Imported Link from react-router-dom
+import { useNavigate, Link } from "react-router-dom";
 
 export default function LanguageSelection() {
-  const [selectedLang, setSelectedLang] = useState("en");
   const navigate = useNavigate();
+  const [selectedLang, setSelectedLang] = useState("en");
 
-  const languages = [
-    { id: "en", label: "English", subLabel: "Default System Language", icon: "🇺🇸" },
-    { id: "hi", label: "हिन्दी", subLabel: "Hindi Console Feed", icon: "🇮🇳" },
-    { id: "ta", label: "தமிழ்", subLabel: "Tamil Console Feed", icon: "🇮🇳" },
-    { id: "te", label: "తెలుగు", subLabel: "Telugu Console Feed", icon: "🇮🇳" }
-  ];
-
+  // Navigate to the next onboarding phase (Account Type Selection)
   const handleNext = () => {
     navigate("/account-type");
   };
+
+  const languages = [
+    { code: "en", label: "English", subLabel: "System Default", icon: "🔠" },
+    { code: "hi", label: "हिन्दी", subLabel: "Hindi", icon: "🇮🇳" },
+    { code: "ta", label: "தமிழ்", subLabel: "Tamil", icon: "🇮🇳" },
+    { code: "te", label: "తెలుగు", subLabel: "Telugu", icon: "🇮🇳" }
+  ];
 
   return (
     <div style={styles.container}>
@@ -22,50 +23,45 @@ export default function LanguageSelection() {
       <div style={styles.brandWrapper}>
         <span style={{ fontSize: "2.5rem" }}>🚛</span>
         <h1 style={styles.brandName}>Sprinto Fleet</h1>
-        <p style={styles.brandSubtitle}>LOGISTICS TELEMETRY SYSTEM v2.0</p>
+        <p style={styles.brandSubtitle}>ONBOARDING PORTAL</p>
       </div>
 
-      {/* Main Card */}
+      {/* Main Choice Box */}
       <div style={styles.card}>
-        <h2 style={styles.cardTitle}>Select System Language</h2>
-        <p style={styles.cardSubtitle}>Choose your preferred language for navigation alerts and console interfaces.</p>
+        <h2 style={styles.cardTitle}>Choose Your Language</h2>
+        <p style={styles.cardSubtitle}>
+          Select your preferred interface language to continue your setup.
+        </p>
 
-        {/* Dynamic Premium Button Grid */}
+        {/* Vertical Language Grid */}
         <div style={styles.grid}>
-          {languages.map((lang) => {
-            const isSelected = selectedLang === lang.id;
-            return (
-              <button
-                key={lang.id}
-                style={{
-                  ...styles.langButton,
-                  ...(isSelected ? styles.langButtonActive : {})
-                }}
-                onClick={() => setSelectedLang(lang.id)}
-              >
-                <span style={styles.langIcon}>{lang.icon}</span>
-                <div style={{ textAlign: "left" }}>
-                  <div style={{ ...styles.langLabel, color: isSelected ? "#00F0FF" : "#FFFFFF" }}>
-                    {lang.label}
-                  </div>
-                  <div style={styles.langSubLabel}>{lang.subLabel}</div>
-                </div>
-                {isSelected && <span style={styles.checkmark}>✓</span>}
-              </button>
-            );
-          })}
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => setSelectedLang(lang.code)}
+              style={{
+                ...styles.langButton,
+                ...(selectedLang === lang.code ? styles.langButtonActive : {})
+              }}
+            >
+              <div style={styles.langIcon}>{lang.icon}</div>
+              <div style={{ textAlign: "left" }}>
+                <div style={styles.langLabel}>{lang.label}</div>
+                <div style={styles.langSubLabel}>{lang.subLabel}</div>
+              </div>
+              {selectedLang === lang.code && <div style={styles.checkmark}>✓</div>}
+            </button>
+          ))}
         </div>
 
-        {/* Navigation Redirect Link to Login Interface */}
+        {/* Login Redirect */}
         <div style={styles.loginRedirectWrapper}>
-          <span style={{ color: "#9CA3AF" }}>Already registered? </span>
-          <Link to="/login" style={styles.loginLink}>
-            Sign In to Terminal
-          </Link>
+          <span style={{ color: "#9CA3AF" }}>Already have an account?</span> 
+          <Link to="/login" style={styles.loginLink}>Sign In</Link>
         </div>
       </div>
 
-      {/* Persistent Bottom-Right Next Action Button */}
+      {/* Persistent Bottom-Right Action Control */}
       <button style={styles.nextButton} onClick={handleNext}>
         Next Step ➔
       </button>
@@ -73,7 +69,7 @@ export default function LanguageSelection() {
   );
 }
 
-// Custom UI Styling Object
+// Styling Specifications Object
 const styles = {
   container: {
     width: "100vw",
